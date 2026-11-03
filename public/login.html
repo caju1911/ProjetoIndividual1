@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contraplano</title>
 </head>
@@ -11,7 +11,26 @@
     <nav class="navbar">
         <a href="#"><img src="img/search.svg" alt="Buscar"></a>
         <a href="index.html"><img src="img/logo.svg" alt="Logo" class="logo"></a>
-        <a href="#" class="entrar"><img src="img/login.svg" alt="Login">Entrar</a>
+        <a href="login.html" class="entrar"><img src="img/login.svg" alt="Login">Entrar</a>
     </nav>
+
+<div class="secao" id="login">
+    <span class="titulo">LOGIN</span>
+
+    <div class="lista">
+        <div class="card">
+            <div class="formulario">
+
+            <span class="descricao">E-mail:</span>
+            <input type="text" id="email_input"> 
+            <span class="descricao">Insira sua senha:</span>
+            <input type="password" id="senha_input"> 
+            <button onclick="entrar()" class="buttonCadastro">Entrar</button>
+            <button onclick="esqueci()" class="buttonEsqueci">Esqueci minha senha</button>
+            <p><a href="cadastro.html">Não possui conta? Clique aqui para se cadastrar!</a></p>
+            
+
+            </div>
+        </div>
 </body>
 </html>
