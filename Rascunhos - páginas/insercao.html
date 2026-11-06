@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/insercao.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contraplano</title>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#"><img src="img/search.svg" alt="Buscar"></a>
+        <a href="index.html"><img src="img/logo.svg" alt="Logo" class="logo"></a>
+        <a href="login.html" class="entrar"><img src="img/login.svg" alt="Login">Entrar</a>
+    </nav>
+
+<div class="secao" id="insercao">
+    <span class="titulo">NOVO FILME</span>
+
+    <div class="lista">
+        <div class="card">
+            <div class="formulario">
+
+            <span class="descricao">Insira o nome do filme:</span>
+            <input type="text" id="nomeFilme_input"> 
+            <span class="descricao">Insira o ano de lançamento do filme:</span>
+            <input type="text" id="anoFilme_input">
+            <span class="descricao">Insira o nome do(a) diretor(a) do filme:</span>
+            <input type="text" id="nomeDiretor_input">
+            <span class="descricao">Insira o país que o filme foi produzido:</span>
+            <input type="text" id="paisFilme_input">
+            <span class="descricao">Insira o gênero do filme:</span>
+            <input type="text" id="generoFilme_input"> 
+            <button onclick="cadastrarFilme()" class="buttonInserir">Cadastrar filme</button>
+            
+            </div>
+        </div>
+</body>
+</html>
+<script>
+
+  function cadastrarFilme() {
+    // aguardar();
+
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var nomeFilmeVar = nomeFilme_input.value;
+    var anoFilmeVar = anoFilme_input.value;
+    var nomeDiretorVar = nomeDiretor_input.value;
+    var paisFilmeVar = paisFilme_input.value;
+    var generoVar = generoFilme_input.value;
+
+    // Verificando se há algum campo em branco
+
+    // colocar laço de repeticao aqui
+    let campos = [nomeFilmeVar, anoFilmeVar, nomeDiretorVar, paisFilmeVar, generoVar]
+
+    for (let i = 0; i < campos.length; i++){
+        if (campos[i] == ''){
+            mostrarMensagem("Preencha todos os campos.");
+            return false;
+        }
+    }
+
+
+    // Enviando o valor da nova input
+    fetch("/filmes/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+
+        nomeFilmeServer: nomeFilmeVar,
+        anoFilmeServer: anoFilmeVar,
+        nomeDiretorServer: nomeDiretorVar,
+        paisFilmeServer: paisFilmeVar,
+        generoServer: generoVar
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          mensagem_erro.innerHTML =
+            "Filme cadastrado com sucesso! Retornando para a dashboard...";
+
+          setTimeout(() => {
+            window.location = "dashboard.html";
+          }, "2000");
+
+        } else {
+          throw "Houve um erro ao tentar cadastrar o filme!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+    return false;
+  }
+
+</script>

@@ -31,7 +31,7 @@
             <input type="text" id="paisFilme_input">
             <span class="descricao">Insira o gênero do filme:</span>
             <input type="text" id="generoFilme_input"> 
-            <button onclick="cadastrar()" class="buttonInserir">Cadastrar filme</button>
+            <button onclick="cadastrarFilme()" class="buttonInserir">Cadastrar filme</button>
             
             </div>
         </div>
@@ -39,45 +39,37 @@
 </html>
 <script>
 
-  function cadastrar() {
-    // aguardar();
+  function cadastrarFilme() {
 
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
     var nomeFilmeVar = nomeFilme_input.value;
     var anoFilmeVar = anoFilme_input.value;
     var nomeDiretorVar = nomeDiretor_input.value;
     var paisFilmeVar = paisFilme_input.value;
     var generoVar = generoFilme_input.value;
 
-    // Verificando se há algum campo em branco
-    // colocar laço de repeticao aqui
-    if (
-      nomeFilmeVar == "" ||
-      anoFilmeVar == "" ||
-      nomeDiretorVar == "" ||
-      paisFilmeVar == "" ||
-      generoFilmeVar == ""
-    ) {
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
-      return false;
-    } 
+
+    let campos = [nomeFilmeVar, anoFilmeVar, nomeDiretorVar, paisFilmeVar, generoVar]
+
+    for (let i = 0; i < campos.length; i++){
+        if (campos[i] == ''){
+            mostrarMensagem("Preencha todos os campos.");
+            return false;
+        }
+    }
 
 
-    // Enviando o valor da nova input
-    fetch("/usuarios/cadastrar", {
+    fetch("/filmes/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        nomeServer: nomeVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar,
-        codigoServer: codigoVar
+        fkUsuarioServer: sessionStorage.ID_USUARIO,
+        nomeFilmeServer: nomeFilmeVar,
+        anoFilmeServer: anoFilmeVar,
+        nomeDiretorServer: nomeDiretorVar,
+        paisFilmeServer: paisFilmeVar,
+        generoServer: generoVar
       }),
     })
       .then(function (resposta) {
@@ -86,14 +78,14 @@
         if (resposta.ok) {
 
           mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+            "Filme cadastrado com sucesso! Retornando para a dashboard...";
 
           setTimeout(() => {
-            window.location = "login.html";
+            window.location = "dashboard.html";
           }, "2000");
 
         } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
+          throw "Houve um erro ao tentar cadastrar o filme!";
         }
       })
       .catch(function (resposta) {
