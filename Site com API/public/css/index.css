@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #364C84;
+    color: #FFFDF5;
+    margin: 0;
+}
+
+
+
+.principal {
+    display: grid;
+    place-items:  center;
+    
+}
+
+
+
+#principal .buttonCadastro {
+    width: 100%;
+    margin-top: 4px;
+    padding: 12px;
+    background-color: #E6F0A3;
+    color: #364C84;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Albert Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+#login .buttonEsqueci {
+    width: 100%;
+    margin-top: 4px;
+    padding: 12px;
+    background-color: #364C84;
+    color: #E6F0A3;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Albert Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+}
+
