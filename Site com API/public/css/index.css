@@ -12,16 +12,22 @@ body {
 
 
 
-.principal {
+#principal {
     display: grid;
-    place-items:  center;
-    
+    place-items: center;
+    padding-top: 100px;
+    align-content: center;
+}
+
+img {
+    width: 230px;
+    padding-bottom: 10px;
 }
 
 
 
 #principal .buttonCadastro {
-    width: 100%;
+    width: 500px;
     margin-top: 4px;
     padding: 12px;
     background-color: #E6F0A3;
@@ -29,20 +35,20 @@ body {
     border: none;
     border-radius: 12px;
     font-family: 'Albert Sans', sans-serif;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 500;
 }
 
-#login .buttonEsqueci {
-    width: 100%;
+#principal .buttonLogin {
+    width: 500px;
     margin-top: 4px;
     padding: 12px;
-    background-color: #364C84;
+    background-color: #95B1EE;
     color: #E6F0A3;
     border: none;
     border-radius: 12px;
     font-family: 'Albert Sans', sans-serif;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 500;
 }
 
