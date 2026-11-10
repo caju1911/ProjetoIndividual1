@@ -3,15 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="css/dashboard.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contraplano</title>
 </head>
 <body>
     <nav class="navbar">
         <a href="#"><img src="img/search.svg" alt="Buscar"></a>
-        <a href="index.html"><img src="img/logo.svg" alt="Logo" class="logo"></a>
+        <a href="homepage.html"><img src="img/logo.svg" alt="Logo" class="logo"></a>
         <a href="login.html" class="entrar"><img src="img/login.svg" alt="Login">Entrar</a>
     </nav>
+
+
+    <div id="hero">
+
+    <h1>
+    <span class="it">olá, Julia<br></span>
+    </h1>
+    
+    <img src="img/florascii.png" class="logo">
+
+    <span class="p">Estastíticas pessoais</span>
+
+    </div>
+
+
+    <div class="kpi">
+        <div class="card">
+            <p class="textoSimples1">Filmes vistos este mês:</p>
+            <p class="textoSimples2">4</p>
+            <p class="textoSimples1">Meta: 5</p>
+            <button onclick="alterarMetas()" class="buttonAlterar">Alterar meta do mês</button>
+        </div>
+
+       
+        <div class="buttons">
+            <button class="buttonInserir">Inserir filme no histórico</button> <br>
+            <button class="buttonCadastrar">Cadastrar nova resenha</button>
+        </div>
+        
+    </div>
+
+    <div class="graficos">
+
+    <!-- grafico 1 -->
+    <div class="cardGrafico">
+        <p class="textoSimples1">Filmes por gênero</p>
+        <div class="areaGrafico">
+            <canvas id="graficoGeneros"></canvas>
+        </div>
+    </div>
+
+    <!-- grafico 2 -->
+    <div class="cardGrafico">
+        <p class="textoSimples1">Filmes por mês</p>
+        <div class="areaGrafico">
+            <canvas id="graficoMeses"></canvas>
+        </div>
+    </div>
+</div>
+    
 </body>
 </html>
+<script>
+  const ctx = document.getElementById('graficoGeneros');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+const ctx2  = document.getElementById('graficoMeses');
+
+  new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+});
+</script>
