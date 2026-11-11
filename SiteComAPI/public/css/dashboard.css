@@ -89,7 +89,7 @@ body {
 
 .kpi {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
     justify-content: center;
     align-items: center;
     gap: 16px;
@@ -98,7 +98,7 @@ body {
     
     .card {
         background-color: #FFFDF5;
-        width: 500px;
+        width: 330px;
         text-align: center;
         color: #364C84;
         font-family: 'Albert Sans', sans-serif;
@@ -113,7 +113,7 @@ body {
 }
 
  .buttonInserir {
-    width: 480px;
+    width: 400px;
     margin-top: 4px;
     padding: 20px;
     background-color: #E6F0A3;
@@ -126,7 +126,7 @@ body {
 }
 
  .buttonCadastrar {
-    width: 480px;
+    width: 400px;
     margin-top: 4px;
     padding: 20px;
     background-color: #95B1EE;
@@ -176,7 +176,7 @@ body {
     font-family: 'Albert Sans', sans-serif;
     border-radius: 25px;
     padding: 20px;
-    width: 500px;
+    width: 550px;
     text-align: center;
 }
 
