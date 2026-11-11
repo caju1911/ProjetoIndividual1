@@ -37,6 +37,13 @@
             <button onclick="alterarMetas()" class="buttonAlterar">Alterar meta do mês</button>
         </div>
 
+        <div class="card">
+            <p class="textoSimples1">Filmes vistos este ano:</p>
+            <p class="textoSimples2">40</p>
+            <p class="textoSimples1">Meta: 50</p>
+            <button onclick="alterarMetas()" class="buttonAlterar">Alterar meta anual</button>
+        </div>
+
        
         <div class="buttons">
             <button class="buttonInserir">Inserir filme no histórico</button> <br>
@@ -47,7 +54,7 @@
 
     <div class="graficos">
 
-    <!-- grafico 1 -->
+    <!-- filmes por genero -->
     <div class="cardGrafico">
         <p class="textoSimples1">Filmes por gênero</p>
         <div class="areaGrafico">
@@ -55,13 +62,35 @@
         </div>
     </div>
 
-    <!-- grafico 2 -->
+    <!-- paises mais vistos -->
     <div class="cardGrafico">
-        <p class="textoSimples1">Filmes por mês</p>
+        <p class="textoSimples1">Filmes por país</p>
+        <div class="areaGrafico">
+            <canvas id="graficoPais"></canvas>
+        </div>
+    </div>
+
+
+    <!-- diretores mais vistos -->
+    <div class="cardGrafico">
+        <p class="textoSimples1">Diretores mais vistos</p>
+        <div class="areaGrafico">
+            <canvas id="graficoDiretores"></canvas>
+        </div>
+    </div>
+
+    <!-- acompanhamento por mês -->
+    <div class="cardGrafico">
+        <p class="textoSimples1">Acompanhamento mensal</p>
         <div class="areaGrafico">
             <canvas id="graficoMeses"></canvas>
         </div>
     </div>
+
+
+
+
+
 </div>
     
 </body>
@@ -88,9 +117,51 @@
     }
   });
 
-const ctx2  = document.getElementById('graficoMeses');
+const ctx2  = document.getElementById('graficoPais');
 
   new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+});
+
+const ctx3  = document.getElementById('graficoDiretores');
+
+  new Chart(ctx3, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+});
+
+const ctx4  = document.getElementById('graficoMeses');
+
+  new Chart(ctx4, {
     type: 'bar',
     data: {
       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
