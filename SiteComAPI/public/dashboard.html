@@ -33,15 +33,19 @@
         <div class="card">
             <p class="textoSimples1">Filmes vistos este mês:</p>
             <p class="textoSimples2">4</p>
-            <p class="textoSimples1">Meta: 5</p>
-            <button onclick="alterarMetas()" class="buttonAlterar">Alterar meta do mês</button>
+            <p class="textoSimples1"> 
+            <div id="div_msgMensal"></div>
+            </p>
+            <button onclick="alterarMetaMensal()" class="buttonAlterar">Alterar meta do mês</button>
         </div>
 
         <div class="card">
             <p class="textoSimples1">Filmes vistos este ano:</p>
             <p class="textoSimples2">40</p>
-            <p class="textoSimples1">Meta: 50</p>
-            <button onclick="alterarMetas()" class="buttonAlterar">Alterar meta anual</button>
+            <p class="textoSimples1"> 
+            <div id="div_msgAnual"></div>
+            </p>
+            <button onclick="alterarMetaAnual()" class="buttonAlterar">Alterar meta anual</button>
         </div>
 
        
@@ -86,16 +90,28 @@
             <canvas id="graficoMeses"></canvas>
         </div>
     </div>
-
-
-
-
-
 </div>
     
 </body>
 </html>
 <script>
+
+  let metaMensal = 0
+  let metaAnual = 0
+
+  function alterarMetaMensal(){
+    let alterarMensal = prompt('Insira sua nova meta:');
+    metaMensal = Number(alterarMensal);
+    div_msgMensal.innerHTML `Meta mensal: ${metaMensal}`
+  }
+
+  function alterarMetaAnual (){
+    let alterarAnual = prompt('Insira sua nova meta:');
+    metaAnual = Number(alterarAnual);
+    div_msgAnual.innerHTML = `Metal anual: ${metaAnual}`
+  }
+
+
   const ctx = document.getElementById('graficoGeneros');
 
   new Chart(ctx, {
