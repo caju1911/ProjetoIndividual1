@@ -11,7 +11,7 @@ function cadastrarFilme(fkUsuario, nomeFilme, anoFilme, nomeDiretor, paisFilme, 
     return database.executar(instrucaoSql);
 }
 
-function listar(fkUsuario) {
+function listarFilmes(fkUsuario) {
     var instrucaoSql = `
         SELECT idFilme, nomeFilme, anoFilme, nomeDiretor, paisFilme, genero, dataVisto
         FROM filme

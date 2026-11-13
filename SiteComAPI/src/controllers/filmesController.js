@@ -48,7 +48,7 @@ function cadastrarFilme(req, res) {
     if (fkUsuario == undefined) {
         res.status(400).send("O usuário está undefined!");
     } else {
-        filmesModel.listar(fkUsuario)
+        filmesModel.listarFilmes(fkUsuario)
             .then(
                 function (resultado) {
                     res.json(resultado);
