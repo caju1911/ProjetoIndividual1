@@ -19,7 +19,7 @@
     <div id="hero">
 
     <h1>
-    <span class="it">olá, Julia<br></span>
+    <span class="it">olá, <span id="b_usuario">usuário</span><br></span>
     </h1>
     
     <img src="img/florascii.png" class="logo">
@@ -58,7 +58,7 @@
 
     <div class="graficos">
 
-    <!-- filmes por genero -->
+
     <div class="cardGrafico">
         <p class="textoSimples1">Filmes por gênero</p>
         <div class="areaGrafico">
@@ -66,7 +66,7 @@
         </div>
     </div>
 
-    <!-- paises mais vistos -->
+
     <div class="cardGrafico">
         <p class="textoSimples1">Filmes por país</p>
         <div class="areaGrafico">
@@ -75,7 +75,7 @@
     </div>
 
 
-    <!-- diretores mais vistos -->
+
     <div class="cardGrafico">
         <p class="textoSimples1">Diretores mais vistos</p>
         <div class="areaGrafico">
@@ -83,7 +83,7 @@
         </div>
     </div>
 
-    <!-- acompanhamento por mês -->
+
     <div class="cardGrafico">
         <p class="textoSimples1">Acompanhamento mensal</p>
         <div class="areaGrafico">
@@ -102,7 +102,7 @@
   function alterarMetaMensal(){
     let alterarMensal = prompt('Insira sua nova meta:');
     metaMensal = Number(alterarMensal);
-    div_msgMensal.innerHTML `Meta mensal: ${metaMensal}`
+    div_msgMensal.innerHTML = `Meta mensal: ${metaMensal}`
   }
 
   function alterarMetaAnual (){
@@ -195,4 +195,8 @@ const ctx4  = document.getElementById('graficoMeses');
       }
     }
 });
+
+
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
 </script>

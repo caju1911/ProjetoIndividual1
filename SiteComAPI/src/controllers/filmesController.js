@@ -24,7 +24,6 @@ function cadastrarFilme(req, res) {
         res.status(400).send("O gênero do filme está undefined!")
     } else {
 
-    // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         filmesModel.cadastrarFilme(fkUsuario, nomeFilme, anoFilme, nomeDiretor, paisFilme, genero)
                             .then(
                                 function (resultado) {
@@ -43,6 +42,29 @@ function cadastrarFilme(req, res) {
                     }
                 }
 
+    function listarFilmes(req, res) {
+    var fkUsuario = req.params.fkUsuario;
+
+    if (fkUsuario == undefined) {
+        res.status(400).send("O usuário está undefined!");
+    } else {
+        filmesModel.listar(fkUsuario)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao listar os filmes! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+
 module.exports = {
-    cadastrarFilme
+    cadastrarFilme,
+    listarFilmes
 }
