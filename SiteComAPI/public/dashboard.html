@@ -32,7 +32,7 @@
     <div class="kpi">
         <div class="card">
             <p class="textoSimples1">Filmes vistos este mês:</p>
-            <p class="textoSimples2">4</p>
+            <p class="textoSimples2" id="kpiMes">4</p>
             <p class="textoSimples1"> 
             <div id="div_msgMensal"></div>
             </p>
@@ -41,7 +41,7 @@
 
         <div class="card">
             <p class="textoSimples1">Filmes vistos este ano:</p>
-            <p class="textoSimples2">40</p>
+            <p class="textoSimples2" id="kpiAno">40</p>
             <p class="textoSimples1"> 
             <div id="div_msgAnual"></div>
             </p>
@@ -112,30 +112,10 @@
   }
 
 
-  const ctx = document.getElementById('graficoGeneros');
 
-  new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
+  let graficoPais  = document.getElementById('graficoPais');
 
-const ctx2  = document.getElementById('graficoPais');
-
-  new Chart(ctx2, {
+  new Chart(graficoPais, {
     type: 'pie',
     data: {
       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -154,9 +134,9 @@ const ctx2  = document.getElementById('graficoPais');
     }
 });
 
-const ctx3  = document.getElementById('graficoDiretores');
+  let graficoDiretores  = document.getElementById('graficoDiretores');
 
-  new Chart(ctx3, {
+  new Chart(graficoDiretores, {
     type: 'pie',
     data: {
       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -175,9 +155,9 @@ const ctx3  = document.getElementById('graficoDiretores');
     }
 });
 
-const ctx4  = document.getElementById('graficoMeses');
+  let graficoMeses  = document.getElementById('graficoMeses');
 
-  new Chart(ctx4, {
+  new Chart(graficoMeses, {
     type: 'line',
     data: {
       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -197,6 +177,114 @@ const ctx4  = document.getElementById('graficoMeses');
 });
 
 
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+  b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+  let filmes = [];
+  let proximaAtualizacao;
+
+  function obterDadosGrafico() {
+
+    if (proximaAtualizacao != undefined) {
+      clearTimeout(proximaAtualizacao);
+    }
+
+    fetch(`/filmes/listar/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+          filmes = resposta;
+          calcularKPIs();
+          plotarGrafico(resposta);
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
+
+
+  function plotarGrafico(resposta) {
+
+    console.log('iniciando plotagem do gráfico...');
+
+
+    let labels = [];
+
+    let dados = {
+      labels: labels,
+      datasets: [{
+        label: 'Filmes',
+        data: [],
+        borderWidth: 1
+      }]
+    };
+
+    console.log('----------------------------------------------')
+    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    console.log(resposta)
+
+
+    for (let i = 0; i < resposta.length; i++) {
+      let genero = resposta[i].genero;
+      let posicao = labels.indexOf(genero);
+
+      if (posicao == -1) {
+        labels.push(genero);
+        dados.datasets[0].data.push(1);
+      } else {
+        dados.datasets[0].data[posicao]++;
+      }
+    }
+
+    console.log('----------------------------------------------')
+    console.log('O gráfico será plotado com os respectivos valores:')
+    console.log('Labels:')
+    console.log(labels)
+    console.log('Dados:')
+    console.log(dados.datasets)
+    console.log('----------------------------------------------')
+
+
+    const config = {
+      type: 'pie',
+      data: dados,
+    };
+
+    let myChart = new Chart(
+      document.getElementById('graficoGeneros'),
+      config
+    );
+  }
+
+ 
+  function calcularKPIs() {
+    let hoje = new Date();
+    let mesAtual = hoje.getMonth();
+    let anoAtual = hoje.getFullYear();
+
+    let filmesMes = 0;
+    let filmesAno = 0;
+
+    for (let i = 0; i < filmes.length; i++) {
+      let data = new Date(filmes[i].dataVisto);
+
+      if (data.getFullYear() == anoAtual) {
+        filmesAno++;
+
+        if (data.getMonth() == mesAtual) {
+          filmesMes++;
+        }
+      }
+    }
+
+    kpiMes.innerHTML = filmesMes;
+    kpiAno.innerHTML = filmesAno;
+  }
+
+  window.onload = obterDadosGrafico;
 
 </script>
