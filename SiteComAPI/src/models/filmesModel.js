@@ -11,19 +11,9 @@ function cadastrarFilme(fkUsuario, nomeFilme, anoFilme, nomeDiretor, paisFilme, 
     return database.executar(instrucaoSql);
 }
 
-function listarFilmes(fkUsuario) {
-    var instrucaoSql = `
-        SELECT idFilme, nomeFilme, anoFilme, nomeDiretor, paisFilme, genero, dataVisto
-        FROM filme
-        WHERE fkUsuario = ${fkUsuario};
-    `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
 
 
 
 module.exports = {
     cadastrarFilme,
-    listarFilmes
 };

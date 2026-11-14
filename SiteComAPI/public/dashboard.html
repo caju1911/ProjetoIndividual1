@@ -188,13 +188,11 @@
       clearTimeout(proximaAtualizacao);
     }
 
-    fetch(`/filmes/listar/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
+    fetch(`/dashboard/listarGeneros/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
         response.json().then(function (resposta) {
           console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-          filmes = resposta;
-          calcularKPIs();
           plotarGrafico(resposta);
         });
       } else {
@@ -228,17 +226,11 @@
     console.log(resposta)
 
 
-    for (let i = 0; i < resposta.length; i++) {
-      let genero = resposta[i].genero;
-      let posicao = labels.indexOf(genero);
-
-      if (posicao == -1) {
-        labels.push(genero);
-        dados.datasets[0].data.push(1);
-      } else {
-        dados.datasets[0].data[posicao]++;
-      }
-    }
+  for (let i = 0; i < resposta.length; i++) {
+  var registro = resposta[i];
+  labels.push(registro.nome);
+  dados.datasets[0].data.push(registro.total);
+  }
 
     console.log('----------------------------------------------')
     console.log('O gráfico será plotado com os respectivos valores:')
@@ -261,30 +253,47 @@
   }
 
  
-  function calcularKPIs() {
-    let hoje = new Date();
-    let mesAtual = hoje.getMonth();
-    let anoAtual = hoje.getFullYear();
+function obterKPIs() {
+  fetch(`/dashboard/listar/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (resposta) {
+        filmes = resposta;
+        calcularKPIs();
+      });
+    }
+  })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados dos KPIs: ${error.message}`);
+    });
+}
 
-    let filmesMes = 0;
-    let filmesAno = 0;
+function calcularKPIs() {
+  let hoje = new Date();
+  let mesAtual = hoje.getMonth();
+  let anoAtual = hoje.getFullYear();
 
-    for (let i = 0; i < filmes.length; i++) {
-      let data = new Date(filmes[i].dataVisto);
+  let filmesMes = 0;
+  let filmesAno = 0;
 
-      if (data.getFullYear() == anoAtual) {
-        filmesAno++;
+  for (let i = 0; i < filmes.length; i++) {
+    let data = new Date(filmes[i].dataVisto);
 
-        if (data.getMonth() == mesAtual) {
-          filmesMes++;
-        }
+    if (data.getFullYear() == anoAtual) {
+      filmesAno++;
+
+      if (data.getMonth() == mesAtual) {
+        filmesMes++;
       }
     }
-
-    kpiMes.innerHTML = filmesMes;
-    kpiAno.innerHTML = filmesAno;
   }
 
-  window.onload = obterDadosGrafico;
+  kpiMes.innerHTML = filmesMes;
+  kpiAno.innerHTML = filmesAno;
+}
+
+window.onload = function () {
+  obterDadosGrafico();
+  obterKPIs();
+};
 
 </script>
