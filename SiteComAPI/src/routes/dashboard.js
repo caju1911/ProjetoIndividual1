@@ -11,4 +11,8 @@ router.get("/listarGeneros/:fkUsuario", function (req, res) {
     dashboardController.listarGeneros(req, res);
 });
 
+router.get("/listarKPIs/:fkUsuario", function (req, res) {
+    dashboardController.listarKPIs(req, res);
+});
+
 module.exports = router;

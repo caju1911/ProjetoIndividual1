@@ -42,8 +42,33 @@ var dashboardModel = require("../models/dashboardModel");
         }
     }
 
+    function listarKPIs (req, res){
+        var fkUsuario = req.params.fkUsuario;
+
+        if (fkUsuario == undefined){
+            res.status(400).send("O usuário está undefined!");
+        } else {
+            dashboardModel.listarKPIs(fkUsuario)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao listar os KPIs! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+
+
+
 
 module.exports = {
     listarFilmes,
-    listarGeneros
+    listarGeneros,
+    listarKPIs
 }

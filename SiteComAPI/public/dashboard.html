@@ -254,12 +254,16 @@
 
  
 function obterKPIs() {
-  fetch(`/dashboard/listar/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
+  fetch(`/dashboard/listarKPIs/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
     if (response.ok) {
       response.json().then(function (resposta) {
-        filmes = resposta;
-        calcularKPIs();
+        console.log(`KPIs recebidos: ${JSON.stringify(resposta)}`);
+
+        kpiMes.innerHTML = resposta[0].totalMes;
+        kpiAno.innerHTML = resposta[0].totalAno;
       });
+    } else {
+      console.error(`Erro ao buscar os KPIs. Status: ${response.status}`);
     }
   })
     .catch(function (error) {
@@ -267,29 +271,7 @@ function obterKPIs() {
     });
 }
 
-function calcularKPIs() {
-  let hoje = new Date();
-  let mesAtual = hoje.getMonth();
-  let anoAtual = hoje.getFullYear();
 
-  let filmesMes = 0;
-  let filmesAno = 0;
-
-  for (let i = 0; i < filmes.length; i++) {
-    let data = new Date(filmes[i].dataVisto);
-
-    if (data.getFullYear() == anoAtual) {
-      filmesAno++;
-
-      if (data.getMonth() == mesAtual) {
-        filmesMes++;
-      }
-    }
-  }
-
-  kpiMes.innerHTML = filmesMes;
-  kpiAno.innerHTML = filmesAno;
-}
 
 window.onload = function () {
   obterDadosGrafico();
