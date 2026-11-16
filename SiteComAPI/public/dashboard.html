@@ -70,7 +70,7 @@
     <div class="cardGrafico">
         <p class="textoSimples1">Filmes por país</p>
         <div class="areaGrafico">
-            <canvas id="graficoPais"></canvas>
+            <canvas id="graficoPaises"></canvas>
         </div>
     </div>
 
@@ -110,29 +110,6 @@
     metaAnual = Number(alterarAnual);
     div_msgAnual.innerHTML = `Metal anual: ${metaAnual}`
   }
-
-
-
-  let graficoPais  = document.getElementById('graficoPais');
-
-  new Chart(graficoPais, {
-    type: 'pie',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-});
 
   let graficoDiretores  = document.getElementById('graficoDiretores');
 
@@ -180,20 +157,16 @@
   b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
   let filmes = [];
-  let proximaAtualizacao;
 
-  function obterDadosGrafico() {
 
-    if (proximaAtualizacao != undefined) {
-      clearTimeout(proximaAtualizacao);
-    }
+  function obterDadosGraficoGenero() {
 
     fetch(`/dashboard/listarGeneros/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
         response.json().then(function (resposta) {
           console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-          plotarGrafico(resposta);
+          plotarGrafico(resposta, 'graficoGeneros');
         });
       } else {
         console.error('Nenhum dado encontrado ou erro na API');
@@ -204,8 +177,26 @@
       });
   }
 
+  function obterDadosGraficoPaises() {
+     fetch(`/dashboard/listarPaises/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-  function plotarGrafico(resposta) {
+          plotarGrafico(resposta, 'graficoPaises');
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+
+  }
+
+
+  function plotarGrafico(resposta, idCanvas) {
 
     console.log('iniciando plotagem do gráfico...');
 
@@ -226,10 +217,10 @@
     console.log(resposta)
 
 
-  for (let i = 0; i < resposta.length; i++) {
-  var registro = resposta[i];
-  labels.push(registro.nome);
-  dados.datasets[0].data.push(registro.total);
+    for (let i = 0; i < resposta.length; i++) {
+    var registro = resposta[i];
+    labels.push(registro.nome);
+    dados.datasets[0].data.push(registro.total);
   }
 
     console.log('----------------------------------------------')
@@ -247,10 +238,12 @@
     };
 
     let myChart = new Chart(
-      document.getElementById('graficoGeneros'),
+      document.getElementById(idCanvas),
       config
     );
+
   }
+
 
  
 function obterKPIs() {
@@ -274,7 +267,8 @@ function obterKPIs() {
 
 
 window.onload = function () {
-  obterDadosGrafico();
+  obterDadosGraficoGenero();
+  obterDadosGraficoPaises();
   obterKPIs();
 };
 

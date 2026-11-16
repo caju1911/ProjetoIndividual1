@@ -26,6 +26,22 @@ function listarGeneros(fkUsuario) {
 
 }
 
+function listarPaises(fkUsuario) {
+    console.log("ACESSEI O DASHBOARD MODEL \n function listarGeneros():", fkUsuario);
+
+    var instrucaoSql = `
+       SELECT 
+        paisFilme AS nome,
+        COUNT(paisFilme) AS total
+        FROM filme
+        WHERE fkUsuario = ${fkUsuario}
+        GROUP BY paisFilme;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+
+}
+
 function listarKPIs(fkUsuario){
     console.log ("ACESSEI O DASHBOARD MODEL \n listarKPIs", fkUsuario);
 
@@ -48,5 +64,6 @@ function listarKPIs(fkUsuario){
 module.exports = {
     listarFilmes,
     listarGeneros,
+    listarPaises,
     listarKPIs,
 };

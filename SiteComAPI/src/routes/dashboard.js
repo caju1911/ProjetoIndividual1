@@ -11,6 +11,10 @@ router.get("/listarGeneros/:fkUsuario", function (req, res) {
     dashboardController.listarGeneros(req, res);
 });
 
+router.get("/listarPaises/:fkUsuario", function (req, res) {
+    dashboardController.listarPaises(req, res);
+});
+
 router.get("/listarKPIs/:fkUsuario", function (req, res) {
     dashboardController.listarKPIs(req, res);
 });
