@@ -15,6 +15,10 @@ router.get("/listarPaises/:fkUsuario", function (req, res) {
     dashboardController.listarPaises(req, res);
 });
 
+router.get("/listarDiretores/:fkUsuario", function (req, res) {
+    dashboardController.listarDiretores(req, res);
+});
+
 router.get("/listarKPIs/:fkUsuario", function (req, res) {
     dashboardController.listarKPIs(req, res);
 });

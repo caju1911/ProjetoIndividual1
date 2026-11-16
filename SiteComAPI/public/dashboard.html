@@ -111,26 +111,6 @@
     div_msgAnual.innerHTML = `Metal anual: ${metaAnual}`
   }
 
-  let graficoDiretores  = document.getElementById('graficoDiretores');
-
-  new Chart(graficoDiretores, {
-    type: 'pie',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-});
 
   let graficoMeses  = document.getElementById('graficoMeses');
 
@@ -195,6 +175,23 @@
 
   }
 
+    function obterDadosGraficoDiretores() {
+     fetch(`/dashboard/listarDiretores/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+          plotarGrafico(resposta, 'graficoDiretores');
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+
+  }
 
   function plotarGrafico(resposta, idCanvas) {
 
@@ -269,6 +266,7 @@ function obterKPIs() {
 window.onload = function () {
   obterDadosGraficoGenero();
   obterDadosGraficoPaises();
+  obterDadosGraficoDiretores();
   obterKPIs();
 };
 
