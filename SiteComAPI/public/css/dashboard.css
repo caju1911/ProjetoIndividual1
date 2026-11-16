@@ -178,10 +178,16 @@ body {
     padding: 20px;
     width: 550px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .areaGrafico {
-    position: relative;   
-    height: 300px;        
+    position: relative;
+    width: 100%;
+    align-self: stretch;
+    height: 300px;
     margin-top: 20px;
 }
+

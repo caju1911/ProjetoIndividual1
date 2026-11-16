@@ -108,30 +108,8 @@
   function alterarMetaAnual (){
     let alterarAnual = prompt('Insira sua nova meta:');
     metaAnual = Number(alterarAnual);
-    div_msgAnual.innerHTML = `Metal anual: ${metaAnual}`
+    div_msgAnual.innerHTML = `Meta anual: ${metaAnual}`
   }
-
-
-  let graficoMeses  = document.getElementById('graficoMeses');
-
-  new Chart(graficoMeses, {
-    type: 'line',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-});
 
 
   b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
@@ -193,6 +171,24 @@
 
   }
 
+      function obterDadosGraficoMeses() {
+     fetch(`/dashboard/listarMeses/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+          plotarGraficoMeses(resposta, 'graficoMeses');
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+
+  }
+
   function plotarGrafico(resposta, idCanvas) {
 
     console.log('iniciando plotagem do gráfico...');
@@ -200,12 +196,14 @@
 
     let labels = [];
 
-    let dados = {
+ let dados = {
       labels: labels,
       datasets: [{
         label: 'Filmes',
         data: [],
-        borderWidth: 1
+        backgroundColor: ['#95B1EE', '#364C84', '#E7F1A8'],
+        borderColor: '#FFFDF8',
+        borderWidth: 2
       }]
     };
 
@@ -232,6 +230,10 @@
     const config = {
       type: 'pie',
       data: dados,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
     };
 
     let myChart = new Chart(
@@ -241,6 +243,65 @@
 
   }
 
+  function plotarGraficoMeses(resposta, idCanvas) {
+
+    console.log('iniciando plotagem do gráfico...');
+
+
+    let labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+
+    let dados = {
+      labels: labels,
+      datasets: [{
+        label: 'Filmes por meses',
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        borderColor: '#364C84',
+        backgroundColor: '#95B1EE',
+        pointBackgroundColor: '#364C84',
+        borderWidth: 2,
+        tension: 0.3
+      }]
+    };
+
+    console.log('----------------------------------------------')
+    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    console.log(resposta)
+
+    for (let i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
+      dados.datasets[0].data[registro.mes - 1] = registro.total;
+    }
+
+    console.log('----------------------------------------------')
+    console.log('O gráfico será plotado com os respectivos valores:')
+    console.log('Labels:')
+    console.log(labels)
+    console.log('Dados:')
+    console.log(dados.datasets)
+    console.log('----------------------------------------------')
+
+
+    const config = {
+      type: 'line',
+      data: dados,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { precision: 0 }
+          }
+        }
+      }
+    };
+
+    let myChart = new Chart(
+      document.getElementById(idCanvas),
+      config
+    );
+
+  }
 
  
 function obterKPIs() {
@@ -267,6 +328,7 @@ window.onload = function () {
   obterDadosGraficoGenero();
   obterDadosGraficoPaises();
   obterDadosGraficoDiretores();
+  obterDadosGraficoMeses();
   obterKPIs();
 };
 

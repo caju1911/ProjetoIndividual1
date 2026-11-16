@@ -27,7 +27,7 @@ function listarGeneros(fkUsuario) {
 }
 
 function listarPaises(fkUsuario) {
-    console.log("ACESSEI O DASHBOARD MODEL \n function listarGeneros():", fkUsuario);
+    console.log("ACESSEI O DASHBOARD MODEL \n function listarPaises():", fkUsuario);
 
     var instrucaoSql = `
        SELECT 
@@ -43,7 +43,7 @@ function listarPaises(fkUsuario) {
 }
 
 function listarDiretores(fkUsuario) {
-    console.log("ACESSEI O DASHBOARD MODEL \n function listarGeneros():", fkUsuario);
+    console.log("ACESSEI O DASHBOARD MODEL \n function listarDiretores():", fkUsuario);
 
     var instrucaoSql = `
     SELECT 
@@ -52,6 +52,24 @@ function listarDiretores(fkUsuario) {
     FROM filme
     WHERE fkUsuario = ${fkUsuario}
     GROUP BY nomeDiretor;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+
+}
+
+function listarMeses(fkUsuario) {
+    console.log("ACESSEI O DASHBOARD MODEL \n function listarMeses():", fkUsuario);
+
+    var instrucaoSql = `
+    SELECT
+    MONTH(dataVisto) AS mes,
+    COUNT(*) AS total
+    FROM filme
+    WHERE fkUsuario = 1
+    AND YEAR(dataVisto) = YEAR(CURDATE())
+    GROUP BY MONTH(dataVisto)
+    ORDER BY MONTH(dataVisto);
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -82,5 +100,6 @@ module.exports = {
     listarGeneros,
     listarPaises,
     listarDiretores,
+    listarMeses,
     listarKPIs,
 };
