@@ -172,7 +172,7 @@ var dashboardModel = require("../models/dashboardModel");
 
     function atualizarMetaAnual(req, res){
         var fkUsuario = req.params.fkUsuario;
-        var metaAnual = req.body.metaMensalServer;
+        var metaAnual = req.body.metaAnualServer;
 
 
         if (fkUsuario == undefined){
