@@ -155,7 +155,7 @@ var dashboardModel = require("../models/dashboardModel");
         } else if (metaMensal == undefined){
             res.status(400).send("A meta mensal está undefined!")
         } else {
-            dashboardModel.atualizarMetaMensal(fkUsuario)
+            dashboardModel.atualizarMetaMensal(fkUsuario, metaMensal)
             .then (
                 function (resultado) {
                     res.json(resultado);
@@ -180,7 +180,7 @@ var dashboardModel = require("../models/dashboardModel");
         } else if (metaAnual == undefined){
             res.status(400).send("A meta anual está undefined!")
         } else {
-            dashboardModel.atualizarMetaAnual(fkUsuario)
+            dashboardModel.atualizarMetaAnual(fkUsuario, metaAnual)
             .then (
                 function (resultado) {
                     res.json(resultado);

@@ -98,20 +98,67 @@
 
   let metaMensal = 0
   let metaAnual = 0
+  b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
   function alterarMetaMensal(){
     let alterarMensal = prompt('Insira sua nova meta:');
-    if ()
+    if (alterarMensal != null){
+      let novaMeta = Number(alterarMensal);
+
+      if (novaMeta <= 0){
+        alert('Insira um número maior que 0!')
+      } else {
+        fetch(`/dashboard/atualizarMetaMensal/${sessionStorage.ID_USUARIO}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            metaMensalServer: novaMeta
+          })
+        }).then(function (response) {
+          if (response.ok) {
+            metaMensal = novaMeta;
+            div_msgMensal.innerHTML = `Meta mensal: ${metaMensal}`;
+          } else {
+            console.error(`Erro ao atualizar a meta mensal. Status: ${response.status}`);
+          }
+        })
+          .catch(function (error) {
+            console.error(`Erro ao atualizar a meta mensal: ${error.message}`);
+          });
+      }
+    }
   }
 
-  function alterarMetaAnual (){
+ function alterarMetaAnual(){
     let alterarAnual = prompt('Insira sua nova meta:');
-    metaAnual = Number(alterarAnual);
-    div_msgAnual.innerHTML = `Meta anual: ${metaAnual}`
+    if (alterarAnual != null){
+      let novaMeta = Number(alterarAnual);
+
+      if (novaMeta <= 0){
+        alert('Insira um número maior que 0!')
+      } else {
+        fetch(`/dashboard/atualizarMetaAnual/${sessionStorage.ID_USUARIO}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            metaAnualServer: novaMeta
+          })
+        }).then(function (response) {
+          if (response.ok) {
+            metaAnual = novaMeta;
+            div_msgAnual.innerHTML = `Meta anual: ${metaAnual}`;
+          } else {
+            console.error(`Erro ao atualizar a meta anual. Status: ${response.status}`);
+          }
+        })
+          .catch(function (error) {
+            console.error(`Erro ao atualizar a meta mensal: ${error.message}`);
+          });
+      }
+    }
   }
 
 
-  b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
   function obterDadosGraficoGenero() {
 

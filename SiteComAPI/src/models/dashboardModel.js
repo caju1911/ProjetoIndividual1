@@ -107,7 +107,7 @@ function buscarMetas(fkUsuario){
     return database.executar(instrucaoSql);
 }
 
-function atualizarMetaMensal(fkUsuario){
+function atualizarMetaMensal(fkUsuario, metaMensal){
     console.log ("ACESSEI O DASHBOARD MODEL \n buscarMetas", fkUsuario);
 
     var instrucaoSql = `
@@ -117,11 +117,11 @@ function atualizarMetaMensal(fkUsuario){
     return database.executar(instrucaoSql);
 }
 
-function atualizarMetaAnual(fkUsuario){
+function atualizarMetaAnual(fkUsuario, metaAnual){
     console.log ("ACESSEI O DASHBOARD MODEL \n buscarMetas", fkUsuario);
 
     var instrucaoSql = `
-    UPDATE meta SET metaMensal = ${metaMensal} WHERE fkUsuario = ${fkUsuario};
+    UPDATE meta SET metaMensal = ${metaAnual} WHERE fkUsuario = ${fkUsuario};
 `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
