@@ -27,4 +27,16 @@ router.get("/listarKPIs/:fkUsuario", function (req, res) {
     dashboardController.listarKPIs(req, res);
 });
 
+router.get("/buscarMetas/:fkUsuario", function (req, res) {
+    dashboardController.buscarMetas(req, res);
+});
+
+router.post("/atualizarMetaMensal/:fkUsuario", function (req, res) {
+    dashboardController.atualizarMetaMensal(req, res);
+});
+
+router.post("/atualizarMetaAnual/:fkUsuario", function (req, res) {
+    dashboardController.atualizarMetaAnual(req, res);
+});
+
 module.exports = router;

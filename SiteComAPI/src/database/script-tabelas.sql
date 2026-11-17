@@ -44,7 +44,6 @@ FROM filme
 WHERE fkUsuario = 1
 GROUP BY genero;
 
--- select paises
 SELECT 
 paisFilme AS nome,
 COUNT(paisFilme) AS total

@@ -94,6 +94,39 @@ function listarKPIs(fkUsuario){
     return database.executar(instrucaoSql);
 }
 
+function buscarMetas(fkUsuario){
+    console.log ("ACESSEI O DASHBOARD MODEL \n buscarMetas", fkUsuario);
+
+    var instrucaoSql = `
+    SELECT
+    metaMensal, metaAnual
+    FROM meta
+    WHERE fkUsuario = ${fkUsuario};
+`;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function atualizarMetaMensal(fkUsuario){
+    console.log ("ACESSEI O DASHBOARD MODEL \n buscarMetas", fkUsuario);
+
+    var instrucaoSql = `
+    UPDATE meta SET metaMensal = ${metaMensal} WHERE fkUsuario = ${fkUsuario};
+`;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function atualizarMetaAnual(fkUsuario){
+    console.log ("ACESSEI O DASHBOARD MODEL \n buscarMetas", fkUsuario);
+
+    var instrucaoSql = `
+    UPDATE meta SET metaMensal = ${metaMensal} WHERE fkUsuario = ${fkUsuario};
+`;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     listarFilmes,
@@ -102,4 +135,7 @@ module.exports = {
     listarDiretores,
     listarMeses,
     listarKPIs,
+    buscarMetas,
+    atualizarMetaMensal,
+    atualizarMetaAnual
 };

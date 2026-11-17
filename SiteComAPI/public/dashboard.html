@@ -101,8 +101,7 @@
 
   function alterarMetaMensal(){
     let alterarMensal = prompt('Insira sua nova meta:');
-    metaMensal = Number(alterarMensal);
-    div_msgMensal.innerHTML = `Meta mensal: ${metaMensal}`
+    if ()
   }
 
   function alterarMetaAnual (){
@@ -113,9 +112,6 @@
 
 
   b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-
-  let filmes = [];
-
 
   function obterDadosGraficoGenero() {
 
@@ -153,7 +149,7 @@
 
   }
 
-    function obterDadosGraficoDiretores() {
+  function obterDadosGraficoDiretores() {
      fetch(`/dashboard/listarDiretores/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
         response.json().then(function (resposta) {
@@ -171,7 +167,7 @@
 
   }
 
-      function obterDadosGraficoMeses() {
+  function obterDadosGraficoMeses() {
      fetch(`/dashboard/listarMeses/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
         response.json().then(function (resposta) {
@@ -302,9 +298,8 @@
     );
 
   }
-
  
-function obterKPIs() {
+  function obterKPIs() {
   fetch(`/dashboard/listarKPIs/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
     if (response.ok) {
       response.json().then(function (resposta) {
@@ -322,6 +317,29 @@ function obterKPIs() {
     });
 }
 
+  function obterMetas() {
+  fetch(`/dashboard/buscarMetas/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (resposta) {
+        console.log(`Metas recebidas: ${JSON.stringify(resposta)}`);
+
+        if (resposta.length > 0) {
+          metaMensal = resposta[0].metaMensal;
+          metaAnual = resposta[0].metaAnual;
+        }
+
+        div_msgMensal.innerHTML = `Meta mensal: ${metaMensal}`;
+        div_msgAnual.innerHTML = `Meta anual: ${metaAnual}`;
+      });
+    } else {
+      console.error(`Erro ao buscar as metas. Status: ${response.status}`);
+    }
+  })
+    .catch(function (error) {
+      console.error(`Erro na obtenção das metas: ${error.message}`);
+    });
+}
+
 
 
 window.onload = function () {
@@ -330,6 +348,7 @@ window.onload = function () {
   obterDadosGraficoDiretores();
   obterDadosGraficoMeses();
   obterKPIs();
+  obterMetas();
 };
 
 </script>
