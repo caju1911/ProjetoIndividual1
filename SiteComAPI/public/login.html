@@ -29,6 +29,7 @@
             <button onclick="esqueci()" class="buttonEsqueci">Esqueci minha senha</button>
             <p><a href="cadastro.html">Não possui conta? Clique aqui para se cadastrar!</a></p>
             
+            <div id="mensagem_erro"></div>
 
             </div>
         </div>
@@ -66,6 +67,8 @@
             if (resposta.ok) {
                 console.log(resposta);
 
+                mensagem_erro.innerHTML = "Login realizado com sucesso!"
+
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
@@ -81,6 +84,7 @@
 
             } else {
 
+                mensagem_erro.innerHTML = "Houve um erro ao realizar o login!"
                 console.log("Houve um erro ao tentar realizar o login!");
 
                 resposta.text().then(texto => {
