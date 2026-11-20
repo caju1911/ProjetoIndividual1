@@ -158,8 +158,6 @@
     }
   }
 
-
-
   function obterDadosGraficoGenero() {
 
     fetch(`/dashboard/listarGeneros/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
@@ -386,7 +384,6 @@
       console.error(`Erro na obtenção das metas: ${error.message}`);
     });
 }
-
 
 
 window.onload = function () {

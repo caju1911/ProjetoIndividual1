@@ -2,10 +2,10 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/cadastro.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contraplano</title>
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/cadastro.css">
 </head>
 <body>
     <nav class="navbar">
@@ -14,47 +14,51 @@
         <a href="dashboard.html" class="entrar"><img src="img/pessoa.png" alt="Perfil"></a>
     </nav>
 
-<div class="secao" id="cadastro">
-    <span class="titulo">CADASTRO</span>
+    <div class="secao" id="cadastro">
 
-    <div class="lista">
-        <div class="card">
-            <div class="formulario">
+        <h1 class="it">Cadastro</h1>
+        <div class="divisor"></div>
 
-            <span class="descricao">Código de ativação:</span>
-            <input type="text" id="codigo_input"> 
-            <span class="descricao">Insira seu nome:</span>
-            <input type="text" id="nome_input">
-            <span class="descricao">Insira seu e-mail:</span>
-            <input type="text" id="email_input">
-            <span class="descricao">Insira sua senha:</span>
-            <input type="password" id="senha_input">
-            <span class="descricao">Repita sua senha:</span>
-            <input type="password" id="confirmacao_senha_input"> 
+        <div class="lista">
+            <div class="card">
+                <div class="formulario">
 
+                    <span class="descricao">Código de ativação:</span>
+                    <input type="text" id="codigo_input">
 
-            <button onclick="cadastrar()" class="buttonCadastro">Cadastrar</button>
-            <p><a href="login.html">Já possui conta? Clique aqui!</a></p>
-            <div id="mensagem_erro"></div>
+                    <span class="descricao">Insira seu nome:</span>
+                    <input type="text" id="nome_input">
+
+                    <span class="descricao">Insira seu e-mail:</span>
+                    <input type="text" id="email_input">
+
+                    <span class="descricao">Insira sua senha:</span>
+                    <input type="password" id="senha_input">
+
+                    <span class="descricao">Repita sua senha:</span>
+                    <input type="password" id="confirmacao_senha_input">
+
+                    <button onclick="cadastrar()" class="buttonCadastro">Cadastrar</button>
+                    <p><a href="login.html">Já possui conta? Clique aqui!</a></p>
+                    <div id="mensagem_erro"></div>
+
+                </div>
             </div>
         </div>
+
+        <div class="divisor"></div>
+    </div>
 </body>
 </html>
 <script>
 
   function cadastrar() {
-    // aguardar();
-
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
     var codigoVar = codigo_input.value;
 
-    // Verificando se há algum campo em branco
-    // colocar laço de repeticao aqui
     if (
       nomeVar == "" ||
       emailVar == "" ||
@@ -68,15 +72,12 @@
     } 
 
 
-    // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
