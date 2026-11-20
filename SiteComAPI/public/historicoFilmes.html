@@ -9,9 +9,10 @@
 </head>
 <body onload="carregarHistorico()">
     <nav class="navbar">
+        
         <a href="#"></a>
         <a href="homepage.html"><img src="img/logo.svg" alt="Logo" class="logo"></a>
-        <a href="dashboard.html" class="entrar"><img src="img/pessoa.png" alt="Perfil"></a>
+        <a href="dashboard.html" class="dashboard"><img src="img/pessoa.png" alt="Perfil">Dashboard</a>
     </nav>
 
     <div class="secao" id="historico">
@@ -22,6 +23,47 @@
 
         <div class="divisor"></div>
     </div>
-
 </body>
 </html>
+<script>
+    function carregarHistorico(){
+
+    fetch(`/dashboard/listar/${sessionStorage.ID_USUARIO}`)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (filmes) {
+                    exibirFilmes(filmes);
+                });
+            } else {
+                lista_filmes.innerHTML = "<div class='vazio'>Não foi possível carregar o histórico.</div>";
+            }
+        })
+        .catch(function (erro) {
+            console.log(`#ERRO: ${erro}`);
+        });
+}
+
+    function exibirFilmes(filmes){
+        lista_filmes.innerHTML = ``
+
+        if (filmes.length == 0){
+            lista_filmes.innerHTML = `<div class='vazio'>Não foi possível carregar o histórico.</div>"`
+        } else {
+            for (let i = filmes.length - 1; i >= 0; i--){
+                let filme = filmes[i];
+                let dataVisto = filme.dataVisto.slice(8, 10) + "/" + filme.dataVisto.slice(5, 7) + "/" + filme.dataVisto.slice(0, 4);
+                lista_filmes.innerHTML += `
+                    <div class="filme">
+                    <div class="filme-topo">
+                    <span class="filme-nome">${filme.nomeFilme}</span>
+                    <span class="filme-data">Visto em ${dataVisto}</span>
+                    </div>
+                    <span class="filme-info">${filme.anoFilme} · ${filme.nomeDiretor} · ${filme.paisFilme}</span>
+                    <span class="filme-genero">${filme.genero}</span>
+                </div>`
+
+            }
+        }
+    }
+
+</script>
