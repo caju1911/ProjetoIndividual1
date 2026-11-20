@@ -153,3 +153,29 @@ p {
     justify-content: center;
     font-weight: bold;
 }
+
+@media (max-height: 800px) {
+    .secao {
+        gap: 14px;
+        padding: 8px 24px;
+    }
+
+    .secao .it {
+        font-size: 36px;
+        padding-top: 8px;
+        padding-bottom: 2px;
+    }
+
+    .secao .lista {
+        margin: 10px 0;
+    }
+
+    .secao .card {
+        padding: 20px 24px;
+    }
+
+    #cadastro input {
+        padding: 8px 12px;
+        margin-bottom: 8px;
+    }
+}
