@@ -45,6 +45,69 @@ body {
     }
 }
 
+.filme-direita {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.menu {
+    position: relative;
+}
+
+.btn-pontos {
+    background: none;
+    border: none;
+    color: #364C84;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1;
+    padding: 0 6px;
+    cursor: pointer;
+}
+
+.menu-opcoes {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 10;
+    min-width: 110px;
+    flex-direction: column;
+    background-color: #FFFDF5;
+    border: 1.5px solid #364C84;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.menu-opcoes.aberto {
+    display: flex;
+}
+
+.menu-opcoes button {
+    background: none;
+    border: none;
+    padding: 10px 14px;
+    text-align: left;
+    font-family: 'Albert Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #364C84;
+    cursor: pointer;
+}
+
+.menu-opcoes button:hover {
+    background-color: #E6F0A3;
+}
+
+.menu-opcoes .deletar {
+    color: #B3261E;
+}
+
+.filme-topo {
+    align-items: center;   
+}
+
 .secao {
     flex: 1;
     display: flex;

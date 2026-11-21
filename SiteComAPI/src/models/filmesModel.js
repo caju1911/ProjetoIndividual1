@@ -11,9 +11,20 @@ function cadastrarFilme(fkUsuario, nomeFilme, anoFilme, nomeDiretor, paisFilme, 
     return database.executar(instrucaoSql);
 }
 
+function deletar(idFilme, fkUsuario) {
+    var instrucaoSql = `
+        DELETE FROM filme
+        WHERE idFilme = ${idFilme} AND fkUsuario = ${fkUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 
 
 module.exports = {
     cadastrarFilme,
+    deletar,
+    editar
 };

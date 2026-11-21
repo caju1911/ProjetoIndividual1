@@ -42,7 +42,22 @@ function cadastrarFilme(req, res) {
                     }
                 }
 
+function deletar(req, res) {
+    var idFilme = req.params.idFilme;
+    var fkUsuario = req.params.fkUsuario;
+
+    filmeModel.deletar(idFilme, fkUsuario)
+        .then(function (resultado) {
+            res.status(200).json(resultado);
+        })
+        .catch(function (erro) {
+            console.log("Houve um erro ao deletar o filme: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 
 module.exports = {
     cadastrarFilme,
+    deletar
 }

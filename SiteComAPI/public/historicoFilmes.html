@@ -53,16 +53,59 @@
                 let dataVisto = filme.dataVisto.slice(8, 10) + "/" + filme.dataVisto.slice(5, 7) + "/" + filme.dataVisto.slice(0, 4);
                 lista_filmes.innerHTML += `
                     <div class="filme">
-                    <div class="filme-topo">
-                    <span class="filme-nome">${filme.nomeFilme}</span>
-                    <span class="filme-data">Visto em ${dataVisto}</span>
+                        <div class="filme-topo">
+                            <span class="filme-nome">${filme.nomeFilme}</span>
+                                <div class="filme-direita">
+                                    <span class="filme-data">Visto em ${dataVisto}</span>
+                                    <div class="menu">
+                                    <button class="btn-pontos" onclick="abrirMenu(${filme.idFilme})">⋮</button>
+                                    <div class="menu-opcoes" id="menu_${filme.idFilme}">
+                                <button onclick="editarFilme(${filme.idFilme})">Editar</button>
+                        <button class="deletar" onclick="deletarFilme(${filme.idFilme})">Deletar</button>
                     </div>
-                    <span class="filme-info">${filme.anoFilme} · ${filme.nomeDiretor} · ${filme.paisFilme}</span>
-                    <span class="filme-genero">${filme.genero}</span>
-                </div>`
+                </div>
+            </div>
+        </div>
+        <span class="filme-info">${filme.anoFilme} · ${filme.nomeDiretor} · ${filme.paisFilme}</span>
+        <span class="filme-genero">${filme.genero}</span>
+    </div>`
 
             }
         }
     }
+
+    function abrirMenu(idFilme){
+    const menus = document.getElementsByClassName("menu-opcoes");
+
+    for (let i = 0; i < menus.length; i++){
+        if (menus[i].id != `menu_${idFilme}`){
+            menus[i].classList.remove("aberto");
+        }
+    }
+
+    document.getElementById(`menu_${idFilme}`).classList.toggle("aberto");
+}
+
+function editarFilme(idFilme){
+    console.log(`editar o filme ${idFilme}`);
+}
+
+function deletarFilme(idFilme){
+    if (confirm("Tem certeza que deseja deletar este filme?")) {
+        fetch(`/filmes/deletar/${idFilme}/${sessionStorage.ID_USUARIO}`, {
+            method: "DELETE"
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    carregarHistorico(); 
+                } else {
+                    alert("Não foi possível deletar o filme.");
+                }
+            })
+            .catch(function (erro) {
+                console.log(`#ERRO: ${erro}`);
+            });
+    }
+}
 
 </script>
