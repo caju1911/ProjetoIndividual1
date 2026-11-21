@@ -44,7 +44,6 @@ body {
   }
 }
 
-/* INÍCIO CSS INDEX */
 #hero {
     padding: 100px;
     display: grid;
@@ -207,29 +206,103 @@ body {
         text-align: center;
     }
 
-    #cta {
+    .cta {
         text-align: center;
     }
 
     .posters {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    grid-column: 1 / -1;
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        grid-column: 1 / -1;
+        margin-top: 16px;
     }
 
     .posters img {
-    display: block;
-    width: 200px;
-    height: auto;
+        display: block;
+        width: 200px;
+        height: auto;
+    }
+
+    /* CARROSSEL */
+    .carrossel {
+        grid-column: 1 / -1;
+        width: 100%;
+        max-width: 640px;
+        margin: 24px auto;
+    }
+
+    .carrosselJanela {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+    }
+
+    .slide {
+        display: none;
+    }
+
+    .slide img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+    }
+
+    .slide figcaption {
+        padding: 8px 12px;
+        font-size: 14px;
+        font-family: 'Albert Sans', sans-serif;
+        font-style: italic;
+        text-align: center;
+    }
+
+    .seta {
+        position: absolute;
+        top: 40%;
+        transform: translateY(-50%);
+        width: 36px;
+        height: 36px;
+        border: none;
+        border-radius: 50%;
+        background-color: rgba(54, 76, 132, 0.8);
+        color: #FFFDF5;
+        cursor: pointer;
+    }
+
+    .seta:hover {
+        background-color: #364C84;
+    }
+
+    .anterior {
+        left: 10px;
+    }
+
+    .proxima {
+        right: 10px;
+    }
+
+    .bolinhas {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+    .bolinha {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #98B1EE;
+        opacity: 0.5;
+        cursor: pointer;
+    }
+
+    .bolinha.ativa {
+        background-color: #364C84;
+        opacity: 1;
+    }
 }
-}
-
-/* FIM CSS INDEX */
-
-/* INICIO CSS PAG RESENHA */
-
-
 
 .card {
     

@@ -98,6 +98,42 @@
                 de melhor curta-metragem logo na estreia no festival. 
                 Amo cinema e amo poder me conectar com pessoas novas a partir dele.
             </span> <br>
+            <div class="carrossel">
+    <div class="carrosselJanela">
+        <figure class="slide" id="slide0">
+            <img src="img/carrossel/colacao_usp1.jpg" alt="Colação de grau na USP">
+            <figcaption>Colação de grau, USP, 2026</figcaption>
+        </figure>
+        <figure class="slide" id="slide1">
+            <img src="img/carrossel/making_of_curta.jpg" alt="Making of do curta">
+            <figcaption>Making of do curta, 2026</figcaption>
+        </figure>
+        <figure class="slide" id="slide2">
+            <img src="img/carrossel/making_of_curta_2.jpg" alt="Making of do curta, nos bastidores">
+            <figcaption>Nos bastidores do set, 2026</figcaption>
+        </figure>
+        <figure class="slide" id="slide3">
+            <img src="img/carrossel/premiacao_superoff.jpg" alt="Premiação do festival">
+            <figcaption>Premiação de melhor curta-metragem, festival Super-Off, 2026</figcaption>
+        </figure>
+
+        <figure class="slide" id="slide4">
+            <img src="img/carrossel/trabalho_sapatos.jpg" alt="Trabalho de sapatos">
+            <figcaption>Processo criativo para disciplina de acessórios, 2024</figcaption>
+        </figure>
+
+        <button class="seta anterior" onclick="anterior()">&#10094;</button>
+        <button class="seta proxima" onclick="proxima()">&#10095;</button>
+    </div>
+
+    <div class="bolinhas">
+        <span class="bolinha" id="bolinha0" onclick="irPara(0)"></span>
+        <span class="bolinha" id="bolinha1" onclick="irPara(1)"></span>
+        <span class="bolinha" id="bolinha2" onclick="irPara(2)"></span>
+        <span class="bolinha" id="bolinha3" onclick="irPara(3)"></span>
+        <span class="bolinha" id="bolinha4" onclick="irPara(4)"></span>
+    </div>
+</div>
 
             <span class="textoBio cta"><b>Meus filmes favoritos (no momento) são:</b></span>
             <div class="posters">
@@ -109,7 +145,55 @@
         </div>
     </div>
 
+    
+
     <span class="titulo">SOBRE MIM</span>
 </div>
 </body>
 </html>
+
+<script>
+let atual = 0;
+let total = 5;
+
+function mostrar() {
+    let i = 0;
+    while (i < total) {
+        let slide = document.getElementById("slide" + i);
+        let bolinha = document.getElementById("bolinha" + i);
+
+        if (i == atual) {
+            slide.style.display = "block";
+            bolinha.className = "bolinha ativa";
+        } else {
+            slide.style.display = "none";
+            bolinha.className = "bolinha";
+        }
+
+        i++;
+    }
+}
+
+function proxima() {
+    atual++;
+    if (atual >= total) {
+        atual = 0;
+    }
+    mostrar();
+}
+
+function anterior() {
+    atual--;
+    if (atual < 0) {
+        atual = total - 1;
+    }
+    mostrar();
+}
+
+function irPara(indice) {
+    atual = indice;
+    mostrar();
+}
+
+mostrar();
+</script>
