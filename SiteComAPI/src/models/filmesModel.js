@@ -26,5 +26,4 @@ function deletar(idFilme, fkUsuario) {
 module.exports = {
     cadastrarFilme,
     deletar,
-    editar
 };
