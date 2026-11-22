@@ -123,6 +123,7 @@ body {
     font-family: 'Albert Sans', sans-serif;
     font-size: 20px;
     font-weight: 500;
+    cursor: pointer;
 }
 
  .buttonCadastrar {
@@ -136,6 +137,7 @@ body {
     font-family: 'Albert Sans', sans-serif;
     font-size: 20px;
     font-weight: 500;
+    cursor: pointer;
 }
 
  .buttonAlterar {
@@ -149,6 +151,7 @@ body {
     font-family: 'Albert Sans', sans-serif;
     font-size: 15px;
     font-weight: 500;
+    cursor: pointer;
 }
 
 .textoSimples1 {

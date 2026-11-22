@@ -133,6 +133,7 @@ body {
     font-family: 'Albert Sans', sans-serif;
     font-size: 15px;
     font-weight: 500;
+    cursor: pointer;
 }
 
 #cadastro .buttonLogin {
@@ -146,6 +147,7 @@ body {
     font-family: 'Albert Sans', sans-serif;
     font-size: 15px;
     font-weight: 500;
+    cursor: pointer;
 }
 
 p {

@@ -22,15 +22,45 @@
 
         <div class="divisor"></div>
     </div>
+
+    <div class="modal" id="modal_editar">
+    <div class="modal-card">
+        <h2 class="modal-titulo">Editar filme</h2>
+
+        <span class="descricao">Nome do filme:</span>
+        <input type="text" id="editar_nome">
+
+        <span class="descricao">Ano de lançamento:</span>
+        <input type="text" id="editar_ano">
+
+        <span class="descricao">Diretor(a):</span>
+        <input type="text" id="editar_diretor">
+
+        <span class="descricao">País:</span>
+        <input type="text" id="editar_pais">
+
+        <span class="descricao">Gênero:</span>
+        <input type="text" id="editar_genero">
+
+        <div class="modal-botoes">
+            <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+            <button class="btn-salvar" onclick="salvarEdicao()">Salvar</button>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 <script>
+    let listaFilmes = [];
+    let idFilmeEditando = 0;
+    
     function carregarHistorico(){
 
     fetch(`/dashboard/listar/${sessionStorage.ID_USUARIO}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (filmes) {
+                    listaFilmes = filmes;
                     exibirFilmes(filmes);
                 });
             } else {
@@ -87,7 +117,27 @@
 }
 
 function editarFilme(idFilme){
-    console.log(`editar o filme ${idFilme}`);
+    for (let i = 0; i < listaFilmes.length; i++){
+        if (listaFilmes[i].idFilme == idFilme){
+            editar_nome.value = listaFilmes[i].nomeFilme;
+            editar_ano.value = listaFilmes[i].anoFilme;
+            editar_diretor.value = listaFilmes[i].nomeDiretor;
+            editar_pais.value = listaFilmes[i].paisFilme;
+            editar_genero.value = listaFilmes[i].genero;
+        }
+    }
+
+    idFilmeEditando = idFilme;
+    document.getElementById(`menu_${idFilme}`).classList.remove("aberto");   // fecha o menu dos 3 pontinhos
+    modal_editar.classList.add("aberto");
+}
+
+function fecharModal(){
+    modal_editar.classList.remove("aberto");
+}
+
+function salvarEdicao(){
+    console.log(`salvar a edição do filme ${idFilmeEditando}`);
 }
 
 function deletarFilme(idFilme){

@@ -206,3 +206,86 @@ body {
         gap: 2px;
     }
 }
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.modal.aberto {
+    display: flex;
+}
+
+.modal-card {
+    width: 100%;
+    max-width: 480px;
+    max-height: 100%;
+    overflow-y: auto;
+    background-color: #FFFDF5;
+    color: #364C84;
+    font-family: 'Albert Sans', sans-serif;
+    border-radius: 25px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.modal-titulo {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.modal-card .descricao {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.modal-card input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #364C84;
+    border-radius: 12px;
+    background-color: #FFFDF5;
+    color: #364C84;
+    font-family: 'Albert Sans', sans-serif;
+    font-size: 15px;
+    margin-bottom: 8px;
+    outline: none;
+}
+
+.modal-botoes {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.modal-botoes button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Albert Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-cancelar {
+    background-color: #364C84;
+    color: #FFFDF5;
+}
+
+.btn-salvar {
+    background-color: #E6F0A3;
+    color: #364C84;
+}
