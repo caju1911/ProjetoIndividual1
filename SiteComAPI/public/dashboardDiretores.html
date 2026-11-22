@@ -44,7 +44,7 @@
 <script>
 
     let cores = ['#95B1EE', '#364C84', '#E7F1A8', '#DDF065', '#6F86C4', '#B8C77A', '#A3AAC0', '#4F6BB0'];
-      function obterDadosGraficoGenero() {
+      function obterDadosGraficoDiretores() {
 
     fetch(`/dashboard/listarDiretores/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
@@ -146,7 +146,7 @@
 }
 
   window.onload = function () {
-    obterDadosGraficoGenero();
+    obterDadosGraficoDiretores();
 };
 
 </script>

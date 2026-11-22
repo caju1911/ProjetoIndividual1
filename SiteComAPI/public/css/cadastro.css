@@ -20,7 +20,6 @@ body {
 
     a {
         color: #000000;
-        text-decoration: none;
         font-family: 'Albert Sans', sans-serif;
         font-size: 16px;
     }
@@ -36,11 +35,11 @@ body {
         height: 24px;
     }
 
-    .entrar {
+    .links {
         justify-self: end;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 24px;
     }
 }
 

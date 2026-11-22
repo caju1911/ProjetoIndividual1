@@ -69,7 +69,7 @@ function listarMeses(fkUsuario) {
     MONTH(dataVisto) AS mes,
     COUNT(*) AS total
     FROM filme
-    WHERE fkUsuario = 1
+    WHERE fkUsuario = ${fkUsuario}
     AND YEAR(dataVisto) = YEAR(CURDATE())
     GROUP BY MONTH(dataVisto)
     ORDER BY MONTH(dataVisto);
@@ -124,7 +124,7 @@ function atualizarMetaAnual(fkUsuario, metaAnual){
     console.log ("ACESSEI O DASHBOARD MODEL \n buscarMetas", fkUsuario);
 
     var instrucaoSql = `
-    UPDATE meta SET metaMensal = ${metaAnual} WHERE fkUsuario = ${fkUsuario};
+    UPDATE meta SET metaAnual = ${metaAnual} WHERE fkUsuario = ${fkUsuario};
 `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
