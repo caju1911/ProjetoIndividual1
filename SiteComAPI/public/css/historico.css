@@ -361,3 +361,30 @@ body {
 .filtro button:hover {
     background-color: #FFFDF5;
 }
+
+.paginacao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Albert Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.paginacao button {
+    background-color: #E6F0A3;
+    color: #364C84;
+    font-family: 'Albert Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: 12px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.paginacao button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}

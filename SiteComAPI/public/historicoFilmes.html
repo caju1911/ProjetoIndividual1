@@ -36,7 +36,12 @@
 
         <div class="lista-filmes" id="lista_filmes"></div>
 
-        <div class="divisor"></div>
+        
+<div class="paginacao">
+    <button id="btn_anterior" onclick="mudarPagina(-1)">Anterior</button>
+    <span id="texto_pagina"></span>
+    <button id="btn_proximo" onclick="mudarPagina(1)">Próxima</button>
+</div>
     </div>
 
     <div class="modal" id="modal_editar">
@@ -69,6 +74,9 @@
 <script>
     let listaFilmes = [];
     let idFilmeEditando = 0;
+    let listaAtual = [];
+    let paginaAtual = 1;
+    let filmesPorPagina = 5;
     
     function carregarHistorico(){
 
@@ -252,6 +260,65 @@ function filtrar(){
 
 function limpar(){
     exibirFilmes(listaFilmes);
+}
+
+function exibirFilmes(filmes){
+    listaAtual = filmes; 
+    paginaAtual = 1;
+    mostrarPagina();
+}
+
+function mostrarPagina(){
+    lista_filmes.innerHTML = ``;
+
+    let totalPaginas = Math.ceil(listaAtual.length / filmesPorPagina);
+    if (totalPaginas == 0){
+        totalPaginas = 1;
+    }
+
+    if (listaAtual.length == 0){
+        lista_filmes.innerHTML = `<div class='vazio'>Nenhum filme encontrado.</div>`;
+    } else {
+        let inicio = (paginaAtual - 1) * filmesPorPagina;
+        let fim = inicio + filmesPorPagina;
+
+        if (fim > listaAtual.length){
+            fim = listaAtual.length;
+        }
+
+        for (let i = inicio; i < fim; i++){
+            let filme = listaAtual[listaAtual.length - 1 - i];
+            let dataVisto = filme.dataVisto.slice(8, 10) + "/" + filme.dataVisto.slice(5, 7) + "/" + filme.dataVisto.slice(0, 4);
+
+            lista_filmes.innerHTML += `
+                <div class="filme">
+                    <div class="filme-topo">
+                        <span class="filme-nome">${filme.nomeFilme}</span>
+                        <div class="filme-direita">
+                            <span class="filme-data">Visto em ${dataVisto}</span>
+                            <div class="menu">
+                                <button class="btn-pontos" onclick="abrirMenu(${filme.idFilme})">⋮</button>
+                                <div class="menu-opcoes" id="menu_${filme.idFilme}">
+                                    <button onclick="editarFilme(${filme.idFilme})">Editar</button>
+                                    <button class="deletar" onclick="deletarFilme(${filme.idFilme})">Deletar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="filme-info">${filme.anoFilme} · ${filme.nomeDiretor} · ${filme.paisFilme}</span>
+                    <span class="filme-genero">${filme.genero}</span>
+                </div>`;
+        }
+    }
+
+    texto_pagina.innerHTML = `Página ${paginaAtual} de ${totalPaginas}`;
+    btn_anterior.disabled = (paginaAtual == 1);
+    btn_proximo.disabled = (paginaAtual == totalPaginas);
+}
+
+function mudarPagina(direcao){
+    paginaAtual += direcao; 
+    mostrarPagina();
 }
 
 </script>
