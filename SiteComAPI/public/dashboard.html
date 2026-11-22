@@ -64,7 +64,7 @@
 
 
     <div class="cardGrafico">
-        <p class="textoSimples1">Filmes por gênero</p>
+      <a href="dashboardGeneros.html"><p class="textoSimples1">Filmes por gênero</p></a>
         <div class="areaGrafico">
             <canvas id="graficoGeneros"></canvas>
         </div>
@@ -246,7 +246,7 @@
       datasets: [{
         label: 'Filmes',
         data: [],
-        backgroundColor: ['#95B1EE', '#364C84', '#E7F1A8'],
+        backgroundColor: ['#95B1EE', '#364C84', '#E7F1A8', '#DDF065'],
         borderColor: '#FFFDF8',
         borderWidth: 2
       }]
@@ -262,6 +262,8 @@
     labels.push(registro.nome);
     dados.datasets[0].data.push(registro.total);
   }
+
+  agruparTop3(labels, dados.datasets[0].data);
 
     console.log('----------------------------------------------')
     console.log('O gráfico será plotado com os respectivos valores:')
@@ -389,6 +391,21 @@
     });
 }
 
+function agruparTop3(rotulos, valores){
+    if (rotulos.length > 3){
+        let outros = 0;
+
+        for (let i = 3; i < valores.length; i++){
+            outros += Number(valores[i]);
+        }
+
+        rotulos.splice(3);      
+        valores.splice(3);
+
+        rotulos.push("Outros");
+        valores.push(outros);
+    }
+}
 
 window.onload = function () {
   obterDadosGraficoGenero();

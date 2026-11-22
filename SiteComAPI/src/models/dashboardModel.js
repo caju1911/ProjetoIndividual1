@@ -19,7 +19,8 @@ function listarGeneros(fkUsuario) {
         COUNT(genero) AS total
         FROM filme
         WHERE fkUsuario = ${fkUsuario}
-        GROUP BY genero;
+        GROUP BY genero
+        ORDER BY total DESC;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -35,7 +36,8 @@ function listarPaises(fkUsuario) {
         COUNT(paisFilme) AS total
         FROM filme
         WHERE fkUsuario = ${fkUsuario}
-        GROUP BY paisFilme;
+        GROUP BY paisFilme
+        ORDER BY total DESC;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -51,7 +53,8 @@ function listarDiretores(fkUsuario) {
     COUNT(nomeDiretor) AS total
     FROM filme
     WHERE fkUsuario = ${fkUsuario}
-    GROUP BY nomeDiretor;
+    GROUP BY nomeDiretor
+    ORDER BY total DESC;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

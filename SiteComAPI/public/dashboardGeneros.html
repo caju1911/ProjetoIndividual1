@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="css/dashboardDetalhada.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contraplano</title>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#"></a>
+        <a href="homepage.html"><img src="img/logo.svg" alt="Logo" class="logo"></a>
+        <div class="links">
+        <a href="dashboard.html" class="dashboard">Dashboard</a>
+        <a href="historicoFilmes.html" class="historico">Histórico</a>
+        </div>
+    </nav>
+
+    <div class="topo">
+    <a href="dashboard.html"><button class="btn-voltar">Voltar</button></a> <br>
+    <span class="header">Filmes por gênero</span>    
+    </div>
+
+    
+    <div class="conteudo">
+    <div class="card-grafico">
+        <div class="area-grafico">
+            <canvas id="graficoGeneros"></canvas>
+        </div>
+    </div>
+
+    <div class="card-lista">
+        <h2 class="lista-titulo">Detalhes</h2>
+        <span class="resumo" id="resumo"></span>
+        <div class="lista-detalhe" id="lista_detalhe"></div>
+    </div>
+</div>
+
+    
+</body>
+</html>
+<script>
+
+    let cores = ['#95B1EE', '#364C84', '#E7F1A8', '#DDF065', '#6F86C4', '#B8C77A', '#A3AAC0', '#4F6BB0'];
+      function obterDadosGraficoGenero() {
+
+    fetch(`/dashboard/listarGeneros/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+          plotarGrafico(resposta, 'graficoGeneros');
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
+
+    function plotarGrafico(resposta, idCanvas) {
+
+    console.log('iniciando plotagem do gráfico...');
+
+
+    let labels = [];
+
+    let dados = {
+      labels: labels,
+      datasets: [{
+        label: 'Filmes',
+        data: [],
+        backgroundColor: cores,
+        borderColor: '#FFFDF8',
+        borderWidth: 2
+      }]
+    };
+
+    console.log('----------------------------------------------')
+    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    console.log(resposta)
+
+
+    for (let i = 0; i < resposta.length; i++) {
+    let registro = resposta[i];
+    labels.push(registro.nome);
+    dados.datasets[0].data.push(registro.total);
+  }
+
+    montarLista(labels, dados.datasets[0].data);
+    console.log('----------------------------------------------')
+    console.log('O gráfico será plotado com os respectivos valores:')
+    console.log('Labels:')
+    console.log(labels)
+    console.log('Dados:')
+    console.log(dados.datasets)
+    console.log('----------------------------------------------')
+
+
+    const config = {
+      type: 'pie',
+      data: dados,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    };
+
+    let myChart = new Chart(
+      document.getElementById(idCanvas),
+      config
+    );
+
+  }
+
+  function montarLista(rotulos, valores){
+    let total = 0;
+    lista_detalhe.innerHTML = ``;
+
+    for (let i = 0; i < valores.length; i++){
+        total += Number(valores[i]);
+    }
+
+    if (total == 0){
+        lista_detalhe.innerHTML = `<div>Nenhum filme inserido ainda.</div>`;
+    } else {
+        resumo.innerHTML = `${total} filmes no total`;
+
+        for (let i = 0; i < rotulos.length; i++){
+            let porcentagem = Math.round(valores[i] / total * 100);
+            let cor = cores[i % cores.length];  
+
+            lista_detalhe.innerHTML += `
+                <div class="item">
+                    <span class="cor" style="background-color: ${cor}"></span>
+                    <span class="item-nome">${rotulos[i]}</span>
+                    <span class="item-total">${valores[i]}</span>
+                    <span class="item-pct">${porcentagem}%</span>
+                </div>`;
+        }
+    }
+}
+
+  window.onload = function () {
+    obterDadosGraficoGenero();
+};
+
+</script>
