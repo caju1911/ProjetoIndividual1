@@ -16,6 +16,22 @@
 
     <div class="secao" id="historico">
         <h1 class="it">Histórico</h1>
+        <div class="filtro">
+    <span>Selecione um filtro:</span>
+
+    <select id="slt_filtro" onchange="escolherFiltro()">
+        <option value="#" selected disabled>Selecione uma opção</option>
+        <option value="1">Gênero</option>
+    </select>
+
+    <div class="filtro-genero" id="filtro_genero">
+        <span>Selecione o gênero:</span>
+        <select id="slt_genero"></select>
+    </div>
+
+    <button onclick="filtrar()">Filtrar histórico</button>
+    <button onclick="limpar()">Limpar filtro</button>
+</div>
         <div class="divisor"></div>
 
         <div class="lista-filmes" id="lista_filmes"></div>
@@ -196,6 +212,46 @@ function salvarEdicao(){
                 console.log(`#ERRO: ${erro}`);
             });
     }
+}
+
+function escolherFiltro(){
+    if (slt_filtro.value == 1){
+        let generos = [];
+        slt_genero.innerHTML = `<option value="#" selected disabled>Selecione um gênero</option>`;
+
+        for (let i = 0; i < listaFilmes.length; i++){
+            if (generos.includes(listaFilmes[i].genero) == false){
+                generos.push(listaFilmes[i].genero);
+                slt_genero.innerHTML += `<option value="${listaFilmes[i].genero}">${listaFilmes[i].genero}</option>`;
+            }
+        }
+
+        filtro_genero.classList.add("aberto");
+    }
+}
+
+
+function filtrar(){
+    if (slt_filtro.value == 1){
+        let genero = slt_genero.value;
+        let filmesFiltrados = [];
+
+        if (genero == "#"){
+            alert("Selecione um gênero.");
+        } else {
+            for (let i = 0; i < listaFilmes.length; i++){
+                if (listaFilmes[i].genero == genero){
+                    filmesFiltrados.push(listaFilmes[i]);
+                }
+            }
+
+            exibirFilmes(filmesFiltrados);
+        }
+    }
+}
+
+function limpar(){
+    exibirFilmes(listaFilmes);
 }
 
 </script>
