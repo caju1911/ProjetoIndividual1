@@ -20,10 +20,22 @@ function deletar(idFilme, fkUsuario) {
     return database.executar(instrucaoSql);
 }
 
-
-
+function editar(idFilme, fkUsuario, nomeFilme, anoFilme, nomeDiretor, paisFilme, genero) {
+    var instrucaoSql = `
+        UPDATE filme
+        SET nomeFilme = '${nomeFilme}',
+            anoFilme = ${anoFilme},
+            nomeDiretor = '${nomeDiretor}',
+            paisFilme = '${paisFilme}',
+            genero = '${genero}'
+        WHERE idFilme = ${idFilme} AND fkUsuario = ${fkUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     cadastrarFilme,
     deletar,
+    editar
 };

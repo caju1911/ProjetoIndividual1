@@ -128,7 +128,7 @@ function editarFilme(idFilme){
     }
 
     idFilmeEditando = idFilme;
-    document.getElementById(`menu_${idFilme}`).classList.remove("aberto");   // fecha o menu dos 3 pontinhos
+    document.getElementById(`menu_${idFilme}`).classList.remove("aberto");  
     modal_editar.classList.add("aberto");
 }
 
@@ -150,6 +150,46 @@ function deletarFilme(idFilme){
                     carregarHistorico(); 
                 } else {
                     alert("Não foi possível deletar o filme.");
+                }
+            })
+            .catch(function (erro) {
+                console.log(`#ERRO: ${erro}`);
+            });
+    }
+}
+
+function salvarEdicao(){
+    let campos = [editar_nome, editar_ano, editar_diretor, editar_pais, editar_genero];
+    let camposVazios = 0;
+
+    for (let i = 0; i < campos.length; i++){
+        if (campos[i].value == ""){
+            camposVazios++;
+        }
+    }
+
+    if (camposVazios > 0) {
+        alert("Preencha todos os campos.");
+    } else {
+        fetch(`/filmes/editar/${idFilmeEditando}/${sessionStorage.ID_USUARIO}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeServer: editar_nome.value,
+                anoServer: editar_ano.value,
+                diretorServer: editar_diretor.value,
+                paisServer: editar_pais.value,
+                generoServer: editar_genero.value
+            }),
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    fecharModal();
+                    carregarHistorico();
+                } else {
+                    alert("Não foi possível editar o filme.");
                 }
             })
             .catch(function (erro) {

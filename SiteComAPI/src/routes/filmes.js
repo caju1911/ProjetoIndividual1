@@ -8,8 +8,13 @@ router.post("/cadastrar", function (req, res) {
 })
 
 router.delete("/deletar/:idFilme/:fkUsuario", function (req, res) {
-    filmeController.deletar(req, res);
+    filmesController.deletar(req, res);
 });
+
+router.post("/editar/:idFilme/:fkUsuario", function (req, res) {
+    filmesController.editar(req, res);
+});
+
 
 
 

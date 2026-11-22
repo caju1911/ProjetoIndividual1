@@ -46,7 +46,7 @@ function deletar(req, res) {
     var idFilme = req.params.idFilme;
     var fkUsuario = req.params.fkUsuario;
 
-    filmeModel.deletar(idFilme, fkUsuario)
+    filmesModel.deletar(idFilme, fkUsuario)
         .then(function (resultado) {
             res.status(200).json(resultado);
         })
@@ -56,8 +56,29 @@ function deletar(req, res) {
         });
 }
 
+function editar(req, res) {
+    var idFilme = req.params.idFilme;
+    var fkUsuario = req.params.fkUsuario;
+
+    var nomeFilme = req.body.nomeServer;
+    var anoFilme = req.body.anoServer;
+    var nomeDiretor = req.body.diretorServer;
+    var paisFilme = req.body.paisServer;
+    var genero = req.body.generoServer;
+
+    filmesModel.editar(idFilme, fkUsuario, nomeFilme, anoFilme, nomeDiretor, paisFilme, genero)
+        .then(function (resultado) {
+            res.status(200).json(resultado);
+        })
+        .catch(function (erro) {
+            console.log("Houve um erro ao editar o filme: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 
 module.exports = {
     cadastrarFilme,
-    deletar
+    deletar,
+    editar
 }
