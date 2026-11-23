@@ -39,6 +39,7 @@
             <p class="textoSimples2" id="kpiMes"></p>
             <p class="textoSimples1"> 
             <div id="div_msgMensal"></div>
+            <div id="div_progressoMensal"></div>
             </p>
             <button onclick="alterarMetaMensal()" class="buttonAlterar">Alterar meta do mês</button>
         </div>
@@ -48,6 +49,7 @@
             <p class="textoSimples2" id="kpiAno"></p>
             <p class="textoSimples1"> 
             <div id="div_msgAnual"></div>
+            <div id="div_progressoAnual"></div>
             </p>
             <button onclick="alterarMetaAnual()" class="buttonAlterar">Alterar meta anual</button>
         </div>
@@ -89,7 +91,7 @@
 
 
     <div class="cardGrafico">
-        <p class="textoSimples1">Acompanhamento mensal</p>
+      <a href="dashboardMeses.html"><p class="textoSimples1">Acompanhamento mensal</p></a>
         <div class="areaGrafico">
             <canvas id="graficoMeses"></canvas>
         </div>
@@ -99,9 +101,10 @@
 </body>
 </html>
 <script>
-
   let metaMensal = 0
   let metaAnual = 0
+  let totalAno = 0
+  let totalMes = 0
   b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
   function alterarMetaMensal(){
@@ -122,6 +125,7 @@
           if (response.ok) {
             metaMensal = novaMeta;
             div_msgMensal.innerHTML = `Meta mensal: ${metaMensal}`;
+            atualizarProgresso();
           } else {
             console.error(`Erro ao atualizar a meta mensal. Status: ${response.status}`);
           }
@@ -151,6 +155,7 @@
           if (response.ok) {
             metaAnual = novaMeta;
             div_msgAnual.innerHTML = `Meta anual: ${metaAnual}`;
+            atualizarProgresso();
           } else {
             console.error(`Erro ao atualizar a meta anual. Status: ${response.status}`);
           }
@@ -358,6 +363,9 @@
 
         kpiMes.innerHTML = resposta[0].totalMes;
         kpiAno.innerHTML = resposta[0].totalAno;
+        totalMes = Number(resposta[0].totalMes);
+        totalAno = Number(resposta[0].totalAno);
+        atualizarProgresso();
       });
     } else {
       console.error(`Erro ao buscar os KPIs. Status: ${response.status}`);
@@ -381,6 +389,7 @@
 
         div_msgMensal.innerHTML = `Meta mensal: ${metaMensal}`;
         div_msgAnual.innerHTML = `Meta anual: ${metaAnual}`;
+        atualizarProgresso();
       });
     } else {
       console.error(`Erro ao buscar as metas. Status: ${response.status}`);
@@ -407,6 +416,25 @@ function agruparTop3(rotulos, valores){
     }
 }
 
+function atualizarProgresso(){
+  if (metaAnual > 0){
+    let porcentagemAnual = Math.round(totalAno/metaAnual*100)
+    let porcentagemMensal = Math.round(totalMes/metaMensal*100)
+
+    if (porcentagemAnual >= 100){
+      div_progressoAnual.innerHTML = `Meta batida! (${porcentagemAnual}%)`
+    } else {
+      div_progressoAnual.innerHTML = `Progresso atual: ${porcentagemAnual}%`
+    }
+
+    if (porcentagemMensal >= 100){
+      div_progressoMensal.innerHTML = `Meta batida! (${porcentagemMensal}%)`
+    } else {
+      div_progressoMensal.innerHTML = `Progresso atual: ${porcentagemMensal}%`
+    }
+  }
+
+}
 window.onload = function () {
   obterDadosGraficoGenero();
   obterDadosGraficoPaises();
@@ -414,6 +442,7 @@ window.onload = function () {
   obterDadosGraficoMeses();
   obterKPIs();
   obterMetas();
+  atualizarProgresso();
 };
 
 </script>
