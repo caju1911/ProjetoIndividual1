@@ -86,7 +86,9 @@ body {
     background-size: auto 100%;
 }
 
-
+.mensagem_erro {
+    text-align: center;
+}
 
 #cadastro .formulario {
     display: flex;

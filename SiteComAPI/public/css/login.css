@@ -122,6 +122,10 @@ body {
     color: #A3AAC0;
 }
 
+.mensagem_erro {
+    text-align: center;
+}
+
 
 
 #login .buttonCadastro {

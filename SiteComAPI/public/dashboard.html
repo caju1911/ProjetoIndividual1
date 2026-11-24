@@ -81,7 +81,6 @@
     </div>
 
 
-
     <div class="cardGrafico">
       <a href="dashboardDiretores.html"><p class="textoSimples1">Diretores mais vistos</p></a>
         <div class="areaGrafico">
@@ -417,7 +416,7 @@ function agruparTop3(rotulos, valores){
 }
 
 function atualizarProgresso(){
-  if (metaAnual > 0){
+
     let porcentagemAnual = Math.round(totalAno/metaAnual*100)
     let porcentagemMensal = Math.round(totalMes/metaMensal*100)
 
@@ -434,7 +433,6 @@ function atualizarProgresso(){
     }
   }
 
-}
 window.onload = function () {
   obterDadosGraficoGenero();
   obterDadosGraficoPaises();
