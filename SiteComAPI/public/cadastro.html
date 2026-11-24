@@ -63,17 +63,24 @@
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
     var codigoVar = codigo_input.value;
 
-    if (
-      nomeVar == "" ||
-      emailVar == "" ||
-      senhaVar == "" ||
-      confirmacaoSenhaVar == "" ||
-      codigoVar == ""
-    ) {
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
+    let campos = [nomeVar, emailVar, senhaVar, confirmacaoSenhaVar, codigoVar]
+
+    if (campos[i] == 0){
+      alert('Preencha todos os campos!');
       return false;
-    } 
+    }
+
+    // if (
+    //   nomeVar == "" ||
+    //   emailVar == "" ||
+    //   senhaVar == "" ||
+    //   confirmacaoSenhaVar == "" ||
+    //   codigoVar == ""
+    // ) {
+    //   mensagem_erro.innerHTML =
+    //     "(Mensagem de erro para todos os campos em branco)";
+    //   return false;
+    // } 
 
 
     fetch("/usuarios/cadastrar", {

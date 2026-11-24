@@ -50,10 +50,13 @@
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
 
-        if (emailVar == "" || senhaVar == "") {
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            return false;
+        let campos = [emailVar, senhaVar]
+
+        for (let i = 0; i < campos.length; i++){
+            if (campos[i] == ''){
+                mensagem_erro.innerHTML = "Preencha todos os campos!";
+                return false;
+            }
         }
 
         console.log("FORM LOGIN: ", emailVar);
