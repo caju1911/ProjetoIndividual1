@@ -65,10 +65,13 @@
 
     let campos = [nomeVar, emailVar, senhaVar, confirmacaoSenhaVar, codigoVar]
 
-    if (campos[i] == 0){
+    for (let i = 0; i < campos.length; i++){
+      if (campos[i] == 0){
       alert('Preencha todos os campos!');
       return false;
     }
+    }
+
 
     // if (
     //   nomeVar == "" ||
