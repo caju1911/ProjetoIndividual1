@@ -6,21 +6,25 @@
 
 **Contraplano** é um site individual de resenhas e diário de filmes: um espaço autoral para registrar o que assisto, publicar críticas no estilo de newsletter e acompanhar métricas sobre o próprio repertório em uma dashboard. Projeto do 1º semestre de **Análise e Desenvolvimento de Sistemas (ADS)** na **SPTech (São Paulo Tech School)**.
 
----
-
-### [ SOBRE O PROJETO ]
+```text
+.:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:.
+[ SOBRE O PROJETO ]
+.:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:.
+```
 
 Na linguagem cinematográfica, o *contraplano* é o enquadramento que mostra o lado oposto ao do plano anterior. A proposta do projeto parte desse conceito: transformar o ato de assistir filmes — muitas vezes passivo e guiado por algoritmos — em um hábito consciente, registrado e analisado.
 
 Com curadoria pessoal e registro 100% manual (sem importação automática do Letterboxd), o sistema permite:
 
 - **Página inicial (`homepage.html`):** estrutura no estilo Substack/newsletter com destaque, cards de resenhas (*Cidade dos Sonhos* e *Marty Supreme*) e seção *"Sobre mim"* com carrossel de fotos e filmes favoritos.
-- **Perfil e Dashboard (`dashboard.html`):** indicadores de consumo, metas mensal e anual e gráficos gerados a partir dos dados armazenados no banco.
-- **Cadastro e Histórico (`historico.html`):** formulário manual para registrar nome, ano, diretor, país, gênero e data em que o filme foi visto, além da listagem completa do acervo pessoal.
+- **Perfil e Dashboard (`dashboard.html`):** indicadores de consumo, metas mensal e anual e gráficos gerados a partir dos dados armazenados no banco. Cada gráfico possui uma página detalhada, para que seja possível visualizar o todo dos dados.
+- **Cadastro e Histórico (`insercao.html, historicoFilmes.html`):** formulário manual para registrar nome, ano, diretor, país, gênero e data em que o filme foi visto, além da listagem completa do acervo pessoal. No histórico, é possível filtrar de acordo com o gênero.
 
----
-
-### [ FUNCIONALIDADES E STATUS ]
+```text
+.:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:.
+[ FUNCIONALIDADES E STATUS ]
+.:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:.
+```
 
 ```text
 +------------+-------------------------------------------------------------------+------------------+
@@ -37,9 +41,11 @@ Com curadoria pessoal e registro 100% manual (sem importação automática do Le
 +------------+-------------------------------------------------------------------+------------------+
 ```
 
----
-
-### [ ARQUITETURA E BANCO DE DADOS ]
+```text
+.:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:.
+[ ARQUITETURA E BANCO DE DADOS ]
+.:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:.
+```
 
 O sistema opera em **três camadas**, onde o front-end se comunica exclusivamente via requisições HTTP com a API (sem acesso direto ao banco):
 
@@ -57,19 +63,23 @@ O sistema opera em **três camadas**, onde o front-end se comunica exclusivament
 - **`filme`**: registro individual de obras (`idFilme`, `fkUsuario`, `nomeFilme`, `anoFilme`, `nomeDiretor`, `paisFilme`, `genero`, `dataVisto`).
 - **`meta`**: controle `1:1` por usuário (`idMeta`, `fkUsuario`, `metaMensal`, `metaAnual`).
 
----
-
-### [ TECNOLOGIAS ]
+```text
+.:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:.
+[ TECNOLOGIAS ]
+.:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:.
+```
 
 - **Front-end:** HTML5, CSS3 e JavaScript
 - **Visualização de Dados:** Chart.js
 - **Back-end:** Node.js e Express (arquitetura em Rotas, Controllers e Models)
 - **Banco de Dados:** MySQL (modelado e testado no MySQL Workbench)
-- **Design & Tipografia:** Figma (moodboard, KV e protótipo) e Google Fonts
+- **Design & Tipografia:** Figma (moodboard, KV e protótipo)
 
----
-
-### [ IDENTIDADE VISUAL ]
+```text
+.:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:.
+[ IDENTIDADE VISUAL ]
+.:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:.
+```
 
 Desenvolvida no Figma a partir de referências de arte ASCII, estética editorial e espaço em branco:
 
@@ -87,9 +97,11 @@ Desenvolvida no Figma a partir de referências de arte ASCII, estética editoria
 +---------------+--------------------------------+-----------------------------------------------------------+
 ```
 
----
-
-### [ AUTORA ]
+```text
+.:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:.
+[ AUTORA ]
+.:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:..:+*+:.
+```
 
 **Julia Carolina Brito dos Santos**  
 Estudante de Análise e Desenvolvimento de Sistemas (ADS) na **SPTech**  
