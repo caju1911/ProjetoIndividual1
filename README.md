@@ -6,7 +6,6 @@
 
 **Contraplano** é um site individual de resenhas e diário de filmes: um espaço autoral para registrar o que assisto, publicar críticas no estilo de newsletter e acompanhar métricas sobre o próprio repertório em uma dashboard. Projeto do 1º semestre de **Análise e Desenvolvimento de Sistemas (ADS)** na **SPTech (São Paulo Tech School)**.[cite: 2]
 
-![Logo](Documentacoes/Imagens/readme/cardlogo.png)
 
 ============================================================
 [ SOBRE O PROJETO ]
