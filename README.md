@@ -1,72 +1,93 @@
-# Contraplano
+# *Contra*plano
 
 > Um universo, diversos conteúdos.
 
-**Contraplano** é um site individual de cinema: um espaço para registrar os filmes que assisto, escrever resenhas e acompanhar métricas sobre o meu repertório. 
-Projeto Indiividual do 1º semestre de Análise e Desenvolvimento de Sistemas (ADS) na SPTECH.
+![Banner](Documentacoes/Imagens/readme/banner.png)
 
+**Contraplano** é um site individual de resenhas e diário de filmes: um espaço autoral para registrar o que assisto, publicar críticas no estilo de newsletter e acompanhar métricas sobre o próprio repertório em uma dashboard. Projeto do 1º semestre de **Análise e Desenvolvimento de Sistemas (ADS)** na **SPTech (São Paulo Tech School)**.[cite: 2]
 
 ![Logo](Documentacoes/Imagens/readme/cardlogo.png)
----
 
-## Sobre o projeto
+============================================================
+[ SOBRE O PROJETO ]
+============================================================
 
-Quero ter dados do que assisto, aumentar meu repertório, conhecer novas culturas e sair da zona de conforto. O Contraplano reúne isso em um só lugar:
+Na linguagem cinematográfica, o *contraplano* é o enquadramento que mostra o lado oposto ao do plano anterior. A proposta do projeto parte desse conceito: transformar o ato de assistir filmes — muitas vezes passivo e guiado por algoritmos — em um hábito consciente, registrado e analisado.[cite: 2, 3]
 
-- uma **página inicial** com as resenhas, no estilo de uma newsletter;
-- um **perfil** com dashboard de métricas;
-- um **cadastro de filmes** feito por formulário, para registrar nome, ano, diretor, país e outros dados.
+Com curadoria pessoal e registro 100% manual (sem importação automática do Letterboxd), o sistema permite:[cite: 3, 5]
 
-Os filmes são inseridos manualmente (sem importar do Letterboxd), para eu ter controle sobre o que alimenta a dashboard.
+* **Página inicial (`homepage.html`):** estrutura no estilo Substack/newsletter com destaque, cards de resenhas (*Cidade dos Sonhos* e *Marty Supreme*) e seção *"Sobre mim"* com carrossel de fotos e filmes favoritos.
+* **Perfil e Dashboard (`dashboard.html`):** indicadores de consumo, metas mensal e anual e gráficos gerados a partir dos dados armazenados no banco.
+* **Cadastro e Histórico (`historico.html`):** formulário manual para registrar nome, ano, diretor, país, gênero e data em que o filme foi visto, além da listagem completa do acervo pessoal.[cite: 2, 4, 9, 10]
 
-## Funcionalidades
+------------------------------------------------------------
+[ FUNCIONALIDADES E STATUS ]
+------------------------------------------------------------
 
-| Funcionalidade | Status |
-|---|---|
-| Página inicial (navbar, hero, resenhas, sobre mim) | ✅ Em HTML/CSS |
-| Cadastro de usuário com código de ativação | ✅ Funcionando |
-| Login | ✅ Funcionando |
-| Cadastro de filmes | ✅ Funcionando |
-| Dashboard do perfil | 🚧 Em desenvolvimento |
++------------+-------------------------------------------------------------------+------------------+
+| Módulo     | Funcionalidade                                                    | Status           |
++------------+-------------------------------------------------------------------+------------------+
+| Home       | Navbar, destaque, cards de resenhas e seção "Sobre mim"           | [OK] Concluído   |
+| Acesso     | Cadastro de usuário com validação de código de ativação no servidor | [OK] Concluído   |
+| Login      | Autenticação de usuário via banco de dados                        | [OK] Concluído   |
+| Filmes     | Cadastro manual de filmes (nome, ano, diretor, país, gênero)       | [OK] Concluído   |
+| Dashboard  | Indicadores (mês/ano) e gráficos por gênero, país, diretor e mês  | [OK] Concluído   |
+| Metas      | Definição e atualização de metas mensal e anual                    | [OK] Concluído   |
+| Histórico  | Listagem de filmes assistidos e remoção de registros              | [OK] Concluído   |
+| Edição     | Edição de filmes já cadastrados e cálculo de progresso das metas   | [OK] Concluído    |
++------------+-------------------------------------------------------------------+------------------+[cite: 4, 5, 6, 8, 9, 10]
 
-### Dashboard (planejada)
+------------------------------------------------------------
+[ ARQUITETURA E BANCO DE DADOS ]
+------------------------------------------------------------
 
-- Filmes assistidos no mês e no ano
-- Gráfico de filmes por ano de lançamento (Chart.js)
-- Diretor mais visto
-- País mais visto
-- Gênero mais visto
+O sistema opera em **três camadas**, onde o front-end se comunica exclusivamente via requisições HTTP com a API (sem acesso direto ao banco):[cite: 6, 7]
 
-## Tecnologias
++---------------+          HTTP          +-----------------------------------+          SQL          +-------------+
+|  Front-end    | -------------------->  |  API (Node.js / Express)          | --------------------> |   MySQL     |
+|  HTML/CSS/JS  | <--------------------  |  Rotas -> Controllers -> Models   | <-------------------- |  Tabelas    |
+|  Chart.js     |                        +-----------------------------------+                       +-------------+
++---------------+[cite: 7]
 
-- **HTML** e **CSS** 
-- **JavaScript**
-- **Node.js** e **Express** (API web-data-viz)
-- **MySQL** (banco de dados)
-- **Chart.js** (gráficos da dashboard)
-- **Figma** (protótipo e identidade visual)
+### Tabelas Principais
 
-## Identidade visual
+* **`usuario`**: dados de cadastro e autenticação (`PK` referenciada pelas demais tabelas).
+* **`codigo_ativacao`**: códigos reutilizáveis validados no back-end para criação de conta.
+* **`filme`**: registro individual de obras (`idFilme`, `fkUsuario`, `nomeFilme`, `anoFilme`, `nomeDiretor`, `paisFilme`, `genero`, `dataVisto`).
+* **`meta`**: controle `1:1` por usuário (`idMeta`, `fkUsuario`, `metaMensal`, `metaAnual`).[cite: 5, 7, 8]
 
-| | |
-|---|---|
-| **Fontes** | Instrument Serif (títulos) e Albert Sans (textos) |
-| **Azul** | `#364C84` |
-| **Creme** | `#FFFDF5` |
-| **Logo** | projetor de cinema antigo em arte ASCII, com "Contra" em itálico e "plano" regular |
+------------------------------------------------------------
+[ TECNOLOGIAS ]
+------------------------------------------------------------
 
+* **Front-end:** HTML5, CSS3 e JavaScript
+* **Visualização de Dados:** Chart.js
+* **Back-end:** Node.js e Express (arquitetura em Rotas, Controllers e Models)
+* **Banco de Dados:** MySQL (modelado e testado no MySQL Workbench)
+* **Design & Tipografia:** Figma (moodboard, KV e protótipo) e Google Fonts[cite: 7, 9, 10]
 
+------------------------------------------------------------
+[ IDENTIDADE VISUAL ]
+------------------------------------------------------------
 
-## Organização do projeto
+Desenvolvida no Figma a partir de referências de arte ASCII, estética editorial e espaço em branco:[cite: 9]
 
-O desenvolvimento seguiu um cronograma por semanas:
++---------------+--------------------------------+---------------------------------------------+
+| Elemento      | Especificação                  | Uso no sistema                              |
++---------------+--------------------------------+---------------------------------------------+
+| Azul profundo | `#364C84`                      | Fundo das páginas, botões e texto dos cards |
+| Creme         | `#FFFDF5`                      | Cards, barra de navegação e texto azul      |
+| Azul claro    | `#98B1EE`                      | Títulos "Sobre mim" e bolinhas do carrossel |
+| Preto/Branco  | `#000000` / `#FFFFFF`          | Links da navbar e contrastes de apoio       |
+| Verde-limão   | `#E7F1A8`                      | Destaque complementar da paleta (Figma)     |
+| Tipografia    | Instrument Serif & Albert Sans | Serifada em itálico para títulos; texto corr|
+| Logo          | Projetor vintage em ASCII     | Ícone arredondado com *Contra*plano        |
++---------------+--------------------------------+---------------------------------------------+[cite: 9, 10]
 
-1. **Documentação e KV** (identidade visual no Figma)
-2. **HTML e CSS** (construção das páginas)
-3. **API** no login e no cadastro
-4. **Dashboard** e apresentação
-
-## Autora
+============================================================
+[ AUTORA ]
+============================================================
 
 **Julia Carolina Brito dos Santos**
-Estudante de ADS na SPTECH · [LinkedIn](https://www.linkedin.com/in/SEU-PERFIL) · [GitHub](https://github.com/caju1911) · [Behance]
+Estudante de Análise e Desenvolvimento de Sistemas (ADS) na **SPTech**[cite: 2]
+[LinkedIn](https://www.linkedin.com/in/julia--carolina) | [GitHub](https://github.com/caju1911) | [Behance](https://www.behance.net/juliacarolina15)
