@@ -37,9 +37,11 @@
                     <input type="text" id="email_input">
 
                     <span class="descricao">Insira sua senha:</span>
+                    <h5>Sua senha deve conter no mínimo 8 caracteres e pelo menos uma letra maíuscula</h5>
                     <input type="password" id="senha_input">
+                    
 
-                    <span class="descricao">Repita sua senha:</span>
+                    <span class="descricao">Confirme sua senha:</span>
                     <input type="password" id="confirmacao_senha_input">
 
                     <button onclick="cadastrar()" class="buttonCadastro">Cadastrar</button>
@@ -74,25 +76,18 @@
       
     if (senhaVar.length < 8){
       mensagem_erro.innerHTML = `Insira uma senha com pelo menos 8 caracteres!`
-    }
-
-    if (senhaVar.toLowerCase() == senhaVar){
+    } else if (senhaVar.toLowerCase() == senhaVar){
       mensagem_erro.innerHTML = `A senha deve ter um caracter maiúsculo`
-    }
-
-    if (senhaVar != confirmacaoSenhaVar){
+    } else if (senhaVar != confirmacaoSenhaVar){
       mensagem_erro.innerHTML = `As senhas não coincidem!`
-    }
-
-    if (!(emailVar.includes('@'))){
+    } else if (!(emailVar.includes('@'))){
       mensagem_erro.innerHTML = `O seu e-mail deve conter @!`
-    }
-
-    if (!(emailVar.includes('.'))){
+    } else if (!(emailVar.includes('.'))){
       mensagem_erro.innerHTML = `Seu email deve terminar com algum domínio!`
-    }
-
-    fetch("/usuarios/cadastrar", {
+    } else {
+      
+      
+      fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -124,7 +119,14 @@
         console.log(`#ERRO: ${resposta}`);
       });
 
-    return false;
+    return false; 
+
+
+
+    }
+
+    
+
   }
 
 </script>

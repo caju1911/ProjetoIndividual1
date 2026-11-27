@@ -122,8 +122,9 @@ body {
     color: #A3AAC0;
 }
 
-.mensagem_erro {
+#mensagem_erro {
     text-align: center;
+    color: #FF746C;
 }
 
 
