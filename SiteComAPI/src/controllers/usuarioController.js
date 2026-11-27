@@ -64,8 +64,6 @@ function cadastrar(req, res) {
                     if (resultadoCodigo.length == 0) {
                         res.status(403).send("Código de ativação inválido.");
                     } else {
-
-                        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
                         usuarioModel.cadastrar(nome, email, senha)
                             .then(
                                 function (resultado) {

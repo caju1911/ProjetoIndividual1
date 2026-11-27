@@ -71,20 +71,26 @@
       return false;
     }
     }
+      
+    if (senhaVar.length < 8){
+      mensagem_erro.innerHTML = `Insira uma senha com pelo menos 8 caracteres!`
+    }
 
+    if (senhaVar.toLowerCase() == senhaVar){
+      mensagem_erro.innerHTML = `A senha deve ter um caracter maiúsculo`
+    }
 
-    // if (
-    //   nomeVar == "" ||
-    //   emailVar == "" ||
-    //   senhaVar == "" ||
-    //   confirmacaoSenhaVar == "" ||
-    //   codigoVar == ""
-    // ) {
-    //   mensagem_erro.innerHTML =
-    //     "(Mensagem de erro para todos os campos em branco)";
-    //   return false;
-    // } 
+    if (senhaVar != confirmacaoSenhaVar){
+      mensagem_erro.innerHTML = `As senhas não coincidem!`
+    }
 
+    if (!(emailVar.includes('@'))){
+      mensagem_erro.innerHTML = `O seu e-mail deve conter @!`
+    }
+
+    if (!(emailVar.includes('.'))){
+      mensagem_erro.innerHTML = `Seu email deve terminar com algum domínio!`
+    }
 
     fetch("/usuarios/cadastrar", {
       method: "POST",

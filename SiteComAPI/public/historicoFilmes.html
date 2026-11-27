@@ -82,7 +82,7 @@
     let paginaAtual = 1;
     let filmesPorPagina = 5;
     
-    function carregarHistorico(){
+function carregarHistorico(){
 
     fetch(`/dashboard/listar/${sessionStorage.ID_USUARIO}`)
         .then(function (resposta) {
@@ -100,7 +100,7 @@
         });
 }
 
-    function exibirFilmes(filmes){
+function exibirFilmes(filmes){
         lista_filmes.innerHTML = ``
 
         if (filmes.length == 0){
@@ -132,7 +132,7 @@
         }
     }
 
-    function abrirMenu(idFilme){
+function abrirMenu(idFilme){
     const menus = document.getElementsByClassName("menu-opcoes");
 
     for (let i = 0; i < menus.length; i++){
@@ -241,7 +241,6 @@ function escolherFiltro(){
         filtro_genero.classList.add("aberto");
     }
 }
-
 
 function filtrar(){
     if (slt_filtro.value == 1){
